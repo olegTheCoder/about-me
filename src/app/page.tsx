@@ -1,27 +1,26 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
 import styles from './page.module.css';
 
 export const HomePage = () => {
-  const { scrollY } = useScroll();
-  const ySlow = useTransform(scrollY, [0, 600], [0, -60]);
-  const yFast = useTransform(scrollY, [0, 600], [0, -180]);
-
   return (
     <main className={styles.main}>
-      <section className={styles.hero}>
-        <motion.h1 style={{ y: ySlow }} className={styles.title}>
-          Привет, я Олег — Frontend Developer
-        </motion.h1>
-        <motion.p style={{ y: yFast }} className={styles.subtitle}>
-          Короткое описание моих навыков и опыта
-        </motion.p>
-      </section>
-      <section className={styles.section}>
-        <h2>Обо мне</h2>
-        <p>Здесь будет краткое описание моих навыков и опыта</p>
-      </section>
+      <div className={styles.container}>
+        <section className={styles.block}>
+          <h1 className={styles.display}>Krasnodar Grotesk — Заголовок для проверки</h1>
+          <p className={styles.sans}>
+            Bezier Sans — абзацный текст для проверки кириллицы: Съешь же ещё этих мягких
+            французских булок да выпей чаю. The quick brown fox jumps over the lazy dog.
+          </p>
+        </section>
+        <section className={styles.block}>
+          <h2 className={styles.display}>Krasnodar Grotesk — Второй заголовок</h2>
+          <p className={styles.sans}>
+            Bezier Sans — числовые и спецсимволы: 1234567890 !@#$%^&*()_+ — тест межбуквенных
+            расстояний, высоты строки и рендеринга в различных размерах.
+          </p>
+        </section>
+      </div>
     </main>
   );
 };
