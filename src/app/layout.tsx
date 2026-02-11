@@ -1,6 +1,8 @@
 import cn from 'classnames';
 import type { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { ThemeScript } from '@/components/ThemeScript';
 import './globals.css';
 
 const inter = Inter({
@@ -17,8 +19,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'Oleg Grachev — Frontend Developer',
-  description: 'Personal site & resume',
+  title: 'Олег Грачев — Frontend разработчик',
+  description: 'Персональные сайт',
 };
 
 export const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -27,13 +29,23 @@ export const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <head>
         <link
           rel="preload"
-          href="/fonts/krasnodar-grotesk/KrasnodarGrotesk.otf"
+          href="/fonts/riviera/Riviera.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/igra-sans/IgraSans.otf"
           as="font"
           type="font/otf"
           crossOrigin="anonymous"
         />
       </head>
-      <body className={cn(inter.variable, montserrat.variable)}>{children}</body>
+      <body className={cn(inter.variable, montserrat.variable)}>
+        <ThemeScript />
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 };

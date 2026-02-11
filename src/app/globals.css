@@ -1,18 +1,14 @@
 @font-face {
-  font-family: 'Bezier Sans';
-  src:
-    local('Bezier Sans'),
-    url('/fonts/BezierSans/BezierSans-Variable.woff2') format('woff2');
-  font-weight: 100 900;
+  font-family: 'Igra Sans';
+  src: url('/fonts/igra-sans/IgraSans.otf') format('opentype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Krasnodar Grotesk';
-  src:
-    local('Krasnodar Grotesk'),
-    url('/fonts/krasnodar-grotesk/KrasnodarGrotesk.otf') format('opentype');
+  font-family: 'Riviera';
+  src: url('/fonts/riviera/Riviera.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -22,12 +18,18 @@
   box-sizing: border-box;
 }
 
+html {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family:
-    'Bezier Sans',
+    'Igra Sans',
     var(--font-sans),
     ui-sans-serif,
     system-ui,
@@ -41,8 +43,8 @@ body {
     Arial,
     'Apple Color Emoji',
     'Segoe UI Emoji';
-  background: #0a0d1a;
-  color: #e6e8ef;
+  background: var(--page-bg);
+  color: var(--text-primary);
 }
 
 a {
@@ -57,6 +59,43 @@ video {
   height: auto;
 }
 
-:root {
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --page-bg: #fafbfc;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --text-primary: #1a1a2e;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --card-bg: #ffffff;
+  --section-bg: #ffffff;
+  --section-bg-alt: #f8f9fb;
+  --skill-bg: #eef2ff;
+  --skill-color: #2563eb;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --timeline-line: rgba(37, 99, 235, 0.2);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='dark'] {
   color-scheme: dark;
+  --page-bg: #0f1117;
+  --accent: #60a5fa;
+  --accent-hover: #93c5fd;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border: #1e293b;
+  --card-bg: #161922;
+  --section-bg: #161922;
+  --section-bg-alt: #0f1117;
+  --skill-bg: rgba(96, 165, 250, 0.12);
+  --skill-color: #93c5fd;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --timeline-line: rgba(96, 165, 250, 0.3);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
