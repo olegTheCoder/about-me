@@ -1,11 +1,11 @@
 'use client';
 
-import { CursorFloatingImages } from '@/components/CursorFloatingImages';
 import { MatrixText } from '@/components/MatrixText';
 import { useTheme } from '@/components/ThemeProvider';
 import { TimelineIcon } from '@/components/TimelineIcon';
-import { motion } from 'framer-motion';
-import { Code2, GraduationCap, Moon, Sun } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Code2, GraduationCap, Menu, Moon, Sun, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import type { IconType } from 'react-icons';
 import {
@@ -57,10 +57,50 @@ const SKILLS: { name: string; Icon: IconType }[] = [
 
 export default function HomePage() {
   const { theme, toggleTheme } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      const headerOffset = 80; // Высота хедера
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+
+    closeMobileMenu();
+  };
+
+  const navItems = [
+    { href: '#about', label: 'Обо мне' },
+    { href: '#experience', label: 'Опыт' },
+    { href: '#projects', label: 'Проекты' },
+    { href: '#education', label: 'Образование' },
+    { href: '#contact', label: 'Контакты' },
+  ];
 
   return (
     <>
-      <CursorFloatingImages />
       <header className={styles.header}>
         <nav className={styles.nav}>
           <motion.a
@@ -69,15 +109,20 @@ export default function HomePage() {
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              closeMobileMenu();
+            }}
           >
             {'<olegthecoder />'}
           </motion.a>
           <div className={styles.navLinks}>
-            <a href="#about">Обо мне</a>
-            <a href="#experience">Опыт</a>
-            <a href="#projects">Проекты</a>
-            <a href="#education">Образование</a>
-            <a href="#contact">Контакты</a>
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href} onClick={(e) => handleNavClick(e, item.href)}>
+                {item.label}
+              </a>
+            ))}
             <motion.button
               type="button"
               className={styles.themeToggle}
@@ -89,7 +134,65 @@ export default function HomePage() {
               {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             </motion.button>
           </div>
+          <motion.button
+            type="button"
+            className={styles.mobileMenuButton}
+            onClick={toggleMobileMenu}
+            aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+            aria-expanded={isMobileMenuOpen}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </motion.button>
         </nav>
+        <AnimatePresence mode="wait">
+          {isMounted && isMobileMenuOpen && (
+            <motion.div
+              className={styles.mobileMenu}
+              initial={{ opacity: 0, maxHeight: 0 }}
+              animate={{ opacity: 1, maxHeight: '500px' }}
+              exit={{ opacity: 0, maxHeight: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <div className={styles.mobileMenuContent}>
+                {navItems.map((item, index) => (
+                  <motion.a
+                    key={item.href}
+                    href={item.href}
+                    className={styles.mobileMenuItem}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    {item.label}
+                  </motion.a>
+                ))}
+                <motion.button
+                  type="button"
+                  className={styles.mobileThemeToggle}
+                  onClick={() => {
+                    toggleTheme();
+                    closeMobileMenu();
+                  }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navItems.length * 0.05 }}
+                >
+                  {theme === 'light' ? (
+                    <>
+                      <Moon size={20} /> Тёмная тема
+                    </>
+                  ) : (
+                    <>
+                      <Sun size={20} /> Светлая тема
+                    </>
+                  )}
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <main className={styles.mainContent}>

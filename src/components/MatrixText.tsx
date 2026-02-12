@@ -14,8 +14,15 @@ const MATRIX_CHARS =
 
 export function MatrixText({ text, className }: MatrixTextProps) {
   const [displayText, setDisplayText] = useState(text);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     const interval = setInterval(() => {
       // Случайно меняем некоторые символы на случайные
       const chars = text.split('');
@@ -40,7 +47,16 @@ export function MatrixText({ text, className }: MatrixTextProps) {
       clearInterval(interval);
       clearInterval(resetInterval);
     };
-  }, [text]);
+  }, [text, isMounted]);
+
+  // На сервере рендерим оригинальный текст без анимации
+  if (!isMounted) {
+    return (
+      <div className={`${styles.matrixContainer} ${className || ''}`}>
+        <span className={`${styles.matrixText} matrix-text-global`}>{text}</span>
+      </div>
+    );
+  }
 
   return (
     <div className={`${styles.matrixContainer} ${className || ''}`}>
