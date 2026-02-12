@@ -1,6 +1,7 @@
 'use client';
 
 import { CursorFloatingImages } from '@/components/CursorFloatingImages';
+import { MatrixText } from '@/components/MatrixText';
 import { useTheme } from '@/components/ThemeProvider';
 import { TimelineIcon } from '@/components/TimelineIcon';
 import { motion } from 'framer-motion';
@@ -69,7 +70,7 @@ export default function HomePage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
           >
-            {'</>'}
+            {'<olegthecoder />'}
           </motion.a>
           <div className={styles.navLinks}>
             <a href="#about">Обо мне</a>
@@ -116,14 +117,13 @@ export default function HomePage() {
                 Грачев
               </motion.span>
             </h1>
-            <motion.p
-              className={styles.heroLabel}
+            <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
             >
-              Frontend-разработчик
-            </motion.p>
+              <MatrixText text="Frontend-разработчик" className={styles.heroLabel} />
+            </motion.div>
             <motion.p
               className={styles.heroTagline}
               initial={{ opacity: 0, y: 16 }}
@@ -171,13 +171,13 @@ export default function HomePage() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=640"
-                  alt="Рабочее место разработчика"
+                  src="/images/about-photo.png"
+                  alt="Олег Грачев"
                   width={320}
                   height={400}
                   sizes="(max-width: 768px) 100vw, 320px"
                   loading="lazy"
-                  unoptimized
+                  className={styles.aboutPhoto}
                 />
               </motion.div>
               <div className={styles.aboutText}>

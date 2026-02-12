@@ -99,3 +99,30 @@ video {
   --timeline-line: rgba(96, 165, 250, 0.3);
   --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
+
+/* Matrix text стили для светлой темы */
+[data-theme='light'] .matrix-text-global {
+  color: #00cc33 !important;
+  text-shadow:
+    0 0 1px #00cc33,
+    0 0 2px #00cc33,
+    0 0 3px #00cc33 !important;
+  animation: matrixGlowLight 3s ease-in-out infinite alternate !important;
+}
+
+@keyframes matrixGlowLight {
+  0% {
+    text-shadow:
+      0 0 1px #00cc33,
+      0 0 2px #00cc33,
+      0 0 3px #00cc33;
+    opacity: 1;
+  }
+  100% {
+    text-shadow:
+      0 0 0.5px #00cc33,
+      0 0 1px #00cc33,
+      0 0 2px #00cc33;
+    opacity: 0.98;
+  }
+}

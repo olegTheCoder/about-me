@@ -310,10 +310,12 @@
   pointer-events: none;
 }
 
-.aboutImage img {
+.aboutImage img,
+.aboutPhoto {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 16px;
 }
 
 .aboutImagePlaceholder {
