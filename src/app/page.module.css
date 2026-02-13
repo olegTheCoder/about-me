@@ -286,12 +286,15 @@
   }
 }
 
-/* Hero — лёгкие градиенты */
+/* Hero — модель сразу под хедером, под ней надпись */
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  padding: 6rem 1.5rem 4rem;
+  align-items: flex-start;
+  padding-top: 4.25rem;
+  padding-right: 1.5rem;
+  padding-bottom: 4rem;
+  padding-left: 1.5rem;
   position: relative;
   overflow: hidden;
   background:
@@ -313,6 +316,72 @@
   width: 100%;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.heroModelBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  order: 1;
+}
+
+.heroLabelWrap {
+  text-align: center;
+}
+
+.heroText {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: 36rem;
+  text-align: center;
+  order: 2;
+}
+
+/* Десктоп: две колонки, контент второй колонки начинается сверху */
+@media (min-width: 769px) {
+  .heroContent {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4rem;
+  }
+
+  .heroText {
+    max-width: none;
+    text-align: left;
+    align-self: flex-start;
+  }
+
+  .heroTagline {
+    margin-left: 0;
+  }
+
+  .heroCta {
+    justify-content: flex-start;
+  }
+}
+
+.heroModel {
+  flex-shrink: 0;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+
+.model3D {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.model3D:active {
+  cursor: grabbing;
 }
 
 .heroLabel {
@@ -321,7 +390,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1.25rem;
+  margin: 0;
 }
 
 .heroTitle {
@@ -331,7 +400,7 @@
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  margin: 0 0 2rem;
+  margin: 0 0 1.25rem;
 }
 
 .heroTagline {
@@ -339,17 +408,20 @@
   line-height: 1.7;
   color: var(--text-secondary);
   max-width: 36ch;
-  margin-bottom: 3rem;
+  margin: 0 auto 3rem;
 }
 
 .heroCta {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
 }
 
 .ctaPrimary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.875rem 1.75rem;
   background: var(--accent);
   color: #fff;
@@ -360,6 +432,8 @@
     background 0.2s,
     transform 0.15s;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  text-align: center;
+  min-width: fit-content;
 }
 
 .ctaPrimary:hover {
@@ -368,7 +442,9 @@
 }
 
 .ctaSecondary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.875rem 1.75rem;
   border: 1px solid var(--border);
   color: var(--text-primary);
@@ -380,6 +456,8 @@
     border-color 0.2s,
     color 0.2s,
     box-shadow 0.2s;
+  text-align: center;
+  min-width: fit-content;
 }
 
 .ctaSecondary:hover {
@@ -491,6 +569,16 @@
     min-height: auto;
   }
 
+  .heroContent {
+    gap: 1.5rem;
+  }
+
+  .heroModel {
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+  }
+
   .heroTitle {
     font-size: clamp(2.5rem, 8vw, 4rem);
     margin-bottom: 1.5rem;
@@ -503,11 +591,6 @@
 
   .heroCta {
     flex-direction: column;
-  }
-
-  .heroCta a {
-    width: 100%;
-    text-align: center;
   }
 
   .aboutGrid {

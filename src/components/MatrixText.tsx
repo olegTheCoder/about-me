@@ -49,18 +49,12 @@ export function MatrixText({ text, className }: MatrixTextProps) {
     };
   }, [text, isMounted]);
 
-  // На сервере рендерим оригинальный текст без анимации
-  if (!isMounted) {
-    return (
-      <div className={`${styles.matrixContainer} ${className || ''}`}>
-        <span className={`${styles.matrixText} matrix-text-global`}>{text}</span>
-      </div>
-    );
-  }
-
+  // Всегда рендерим одинаковую структуру для избежания проблем с гидратацией
   return (
-    <div className={`${styles.matrixContainer} ${className || ''}`}>
-      <span className={`${styles.matrixText} matrix-text-global`}>{displayText}</span>
+    <div className={`${styles.matrixContainer} ${className || ''}`} suppressHydrationWarning>
+      <span className={`${styles.matrixText} matrix-text-global`}>
+        {isMounted ? displayText : text}
+      </span>
     </div>
   );
 }

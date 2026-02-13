@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="ru">
+    <html lang="ru" data-theme="dark" suppressHydrationWarning>
       <head>
         <link
           rel="preload"

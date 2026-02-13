@@ -18,7 +18,15 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
   },
-  ignorePatterns: ['node_modules/', '.next/', 'out/', 'dist/', 'build/', 'coverage/'],
+  ignorePatterns: [
+    'node_modules/',
+    '.next/',
+    'out/',
+    'dist/',
+    'build/',
+    'coverage/',
+    'next-env.d.ts',
+  ],
   overrides: [
     {
       files: ['next.config.ts'],

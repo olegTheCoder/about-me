@@ -1,11 +1,13 @@
 'use client';
 
 import { MatrixText } from '@/components/MatrixText';
+import { Model3D } from '@/components/Model3D';
 import { useTheme } from '@/components/ThemeProvider';
+import { useState, useEffect } from 'react';
+import { VerticalTimeline, VerticalTimelineElement } from '@/components/Timeline';
 import { TimelineIcon } from '@/components/TimelineIcon';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, GraduationCap, Menu, Moon, Sun, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import type { IconType } from 'react-icons';
 import {
@@ -20,7 +22,6 @@ import {
   SiTypescript,
   SiWebpack,
 } from 'react-icons/si';
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import styles from './page.module.css';
 
@@ -145,54 +146,57 @@ export default function HomePage() {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </motion.button>
         </nav>
-        <AnimatePresence mode="wait">
-          {isMounted && isMobileMenuOpen && (
-            <motion.div
-              className={styles.mobileMenu}
-              initial={{ opacity: 0, maxHeight: 0 }}
-              animate={{ opacity: 1, maxHeight: '500px' }}
-              exit={{ opacity: 0, maxHeight: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-            >
-              <div className={styles.mobileMenuContent}>
-                {navItems.map((item, index) => (
-                  <motion.a
-                    key={item.href}
-                    href={item.href}
-                    className={styles.mobileMenuItem}
-                    onClick={(e) => handleNavClick(e, item.href)}
+        {isMounted && (
+          <AnimatePresence mode="wait">
+            {isMobileMenuOpen && (
+              <motion.div
+                key="mobile-menu"
+                className={styles.mobileMenu}
+                initial={{ opacity: 0, maxHeight: 0 }}
+                animate={{ opacity: 1, maxHeight: '500px' }}
+                exit={{ opacity: 0, maxHeight: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <div className={styles.mobileMenuContent}>
+                  {navItems.map((item, index) => (
+                    <motion.a
+                      key={item.href}
+                      href={item.href}
+                      className={styles.mobileMenuItem}
+                      onClick={(e) => handleNavClick(e, item.href)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      {item.label}
+                    </motion.a>
+                  ))}
+                  <motion.button
+                    type="button"
+                    className={styles.mobileThemeToggle}
+                    onClick={() => {
+                      toggleTheme();
+                      closeMobileMenu();
+                    }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    transition={{ delay: navItems.length * 0.05 }}
                   >
-                    {item.label}
-                  </motion.a>
-                ))}
-                <motion.button
-                  type="button"
-                  className={styles.mobileThemeToggle}
-                  onClick={() => {
-                    toggleTheme();
-                    closeMobileMenu();
-                  }}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navItems.length * 0.05 }}
-                >
-                  {theme === 'light' ? (
-                    <>
-                      <Moon size={20} /> Тёмная тема
-                    </>
-                  ) : (
-                    <>
-                      <Sun size={20} /> Светлая тема
-                    </>
-                  )}
-                </motion.button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    {theme === 'light' ? (
+                      <>
+                        <Moon size={20} /> Тёмная тема
+                      </>
+                    ) : (
+                      <>
+                        <Sun size={20} /> Светлая тема
+                      </>
+                    )}
+                  </motion.button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
       </header>
 
       <main className={styles.mainContent}>
@@ -203,63 +207,77 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className={styles.heroTitle}>
-              <motion.span
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Олег
-              </motion.span>
-              <br />
-              <motion.span
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Грачев
-              </motion.span>
-            </h1>
+            {/* Первая колонка: 3D-модель, под ней надпись «Frontend-разработчик» */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              className={styles.heroModelBlock}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-              <MatrixText text="Frontend-разработчик" className={styles.heroLabel} />
-            </motion.div>
-            <motion.p
-              className={styles.heroTagline}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-            >
-              Опыт работы в топовых it-компаних: RuStore, Билайн и red_mad_robot. Обладаю лучшими
-              практиками веб-разработки в больших распределенных командах. Есть реализованные
-              самостоятельные проекты.
-            </motion.p>
-            <motion.div
-              className={styles.heroCta}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.75, duration: 0.5 }}
-            >
-              <motion.a
-                href="#contact"
-                className={styles.ctaPrimary}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+              <div className={styles.heroModel}>
+                {isMounted && <Model3D modelPath="/models/model.glb" className={styles.model3D} />}
+              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className={styles.heroLabelWrap}
               >
-                Связаться
-              </motion.a>
-              <motion.a
-                href="#projects"
-                className={styles.ctaSecondary}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Смотреть работы
-              </motion.a>
+                <MatrixText text="Frontend-разработчик" className={styles.heroLabel} />
+              </motion.div>
             </motion.div>
+            <div className={styles.heroText}>
+              <h1 className={styles.heroTitle}>
+                <motion.span
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  Олег
+                </motion.span>
+                <br />
+                <motion.span
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  Грачев
+                </motion.span>
+              </h1>
+              <motion.p
+                className={styles.heroTagline}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+              >
+                Опыт работы в топовых it-компаниях: RuStore, Билайн и red_mad_robot. Обладаю лучшими
+                практиками веб-разработки в больших распределенных командах. Есть реализованные
+                самостоятельные проекты.
+              </motion.p>
+              <motion.div
+                className={styles.heroCta}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.75, duration: 0.5 }}
+              >
+                <motion.a
+                  href="#contact"
+                  className={styles.ctaPrimary}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Связаться
+                </motion.a>
+                <motion.a
+                  href="#projects"
+                  className={styles.ctaSecondary}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Смотреть работы
+                </motion.a>
+              </motion.div>
+            </div>
           </motion.div>
         </section>
 
@@ -285,9 +303,7 @@ export default function HomePage() {
               </motion.div>
               <div className={styles.aboutText}>
                 <h2 className={styles.sectionTitle}>Обо мне</h2>
-                <p className={styles.aboutLead}>
-                  Опыт работы — 5+ лет. Москва. Предпочитаемый способ связи — Telegram.
-                </p>
+                <p className={styles.aboutLead}>Опыт работы - 4 года. Москва.</p>
                 <p className={styles.aboutBody}>
                   Мне повезло работать в сильных айти-командах Билайна, red_mad_robot и RuStore.
                   Каждый проект имел большую значимость для пользователей, что помимо высокой
@@ -350,7 +366,7 @@ export default function HomePage() {
                 {
                   role: 'Frontend-разработчик',
                   company: 'Билайн',
-                  period: 'Янв 2022 — Окт 2022',
+                  period: 'Мар 2022 — Окт 2022',
                   desc: 'Работал в отделе маркетинговых исследований Growth Hacking. Основная роль — быстрые изменения интерфейсов и создание прототипов для A/B-тестирования. Помимо работы с основным сайтом, создавал welcome-коммуникацию (pop-up, квизы) для совместного проекта Билайна и Альфа-Банка. Дополнительно реализовал соло-проект для внутреннего пользования сотрудников: веб-система генерации UTM-меток по определённым правилам и сохранением в БД. JavaScript, TypeScript, React, Redux, SCSS/SASS, Styled-components, Material-UI, Ant Design, Gitlab, Webpack, Node.js, REST, JWT.',
                   logo: '/logos/beeline.png',
                   url: 'https://www.beeline.ru/',
@@ -370,7 +386,7 @@ export default function HomePage() {
                   date={job.period}
                   dateClassName={styles.timelineDate}
                   iconStyle={{
-                    background: 'var(--card-bg)',
+                    background: '#fff',
                     border: '2px solid var(--border)',
                     display: 'flex',
                     alignItems: 'center',
