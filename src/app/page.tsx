@@ -223,7 +223,7 @@ export default function HomePage() {
                 transition={{ delay: 0.5, duration: 0.5 }}
                 className={styles.heroLabelWrap}
               >
-                <MatrixText text="Frontend-разработчик" className={styles.heroLabel} />
+                <MatrixText text="Фронтенд-разработчик" className={styles.heroLabel} />
               </motion.div>
             </motion.div>
             <div className={styles.heroText}>

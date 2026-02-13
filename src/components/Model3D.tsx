@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import styles from './Model3D.module.css';
 
 interface Model3DProps {
   modelPath: string;
@@ -122,64 +123,22 @@ export function Model3D({ modelPath, className }: Model3DProps) {
     };
   }, [isLoaded, hasError, modelPath]);
 
-  if (hasError || (!isLoaded && !isCheckingFile)) {
+  if (hasError) {
     return (
-      <div
-        className={className}
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '1rem',
-          color: 'var(--text-secondary)',
-        }}
-      >
-        <div
-          style={{
-            width: '100px',
-            height: '100px',
-            border: '2px solid var(--accent)',
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '2rem',
-          }}
-        >
-          3D
-        </div>
-        {hasError && (
-          <p style={{ fontSize: '0.875rem', textAlign: 'center', maxWidth: '200px' }}>
+      <div className={`${styles.errorWrap} ${className ?? ''}`}>
+        <div className={styles.errorBox}>
+          <p className={styles.errorText}>
             Модель не найдена. Добавьте файл модели в /public/models/model.glb
           </p>
-        )}
+        </div>
       </div>
     );
   }
 
   if (isCheckingFile || !isLoaded) {
     return (
-      <div
-        className={className}
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: '100px',
-            height: '100px',
-            border: '2px solid var(--accent)',
-            borderRadius: '8px',
-          }}
-        />
+      <div className={`${styles.skeletonWrap} ${className ?? ''}`}>
+        <div className={styles.skeleton} aria-hidden="true" />
       </div>
     );
   }

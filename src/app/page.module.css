@@ -344,7 +344,7 @@
   align-items: center;
   gap: 1rem;
   flex-shrink: 0;
-  order: 1;
+  order: 2;
 }
 
 .heroLabelWrap {
@@ -357,7 +357,7 @@
   width: 100%;
   max-width: 36rem;
   text-align: center;
-  order: 2;
+  order: 1;
 }
 
 /* Планшет: две колонки, центрированный блок */
@@ -372,15 +372,23 @@
     gap: 3rem;
   }
 
+  .heroModelBlock {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+  }
+
   .heroModel {
-    width: 320px;
-    height: 320px;
+    width: min(max(400px, 38vw), 62vh);
+    height: min(max(400px, 38vw), 62vh);
+    max-width: none;
+    max-height: none;
   }
 
   .heroText {
-    max-width: none;
+    flex: 0 0 auto;
+    max-width: 380px;
     min-width: 0;
-    flex: 1;
     text-align: left;
     align-self: flex-start;
     padding-left: 0;
@@ -409,9 +417,15 @@
 
 /* Десктоп: модель побольше */
 @media (min-width: 1024px) {
+  .heroText {
+    max-width: 400px;
+  }
+
   .heroModel {
-    width: 380px;
-    height: 380px;
+    width: min(max(460px, 44vw), 68vh);
+    height: min(max(460px, 44vw), 68vh);
+    max-width: none;
+    max-height: none;
   }
 
   .heroContent {
@@ -425,9 +439,15 @@
     font-size: 5rem;
   }
 
+  .heroText {
+    max-width: 420px;
+  }
+
   .heroModel {
-    width: 400px;
-    height: 400px;
+    width: min(max(520px, 48vw), 72vh);
+    height: min(max(520px, 48vw), 72vh);
+    max-width: none;
+    max-height: none;
   }
 }
 
@@ -435,6 +455,17 @@
 @media (min-width: 1600px) {
   .heroTitle {
     font-size: 5.5rem;
+  }
+
+  .heroText {
+    max-width: 440px;
+  }
+
+  .heroModel {
+    width: min(max(580px, 52vw), 76vh);
+    height: min(max(580px, 52vw), 76vh);
+    max-width: none;
+    max-height: none;
   }
 }
 
