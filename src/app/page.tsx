@@ -217,13 +217,14 @@ export default function HomePage() {
               <div className={styles.heroModel}>
                 {isMounted && <Model3D modelPath="/models/model.glb" className={styles.model3D} />}
               </div>
-              <MatrixText text="Frontend-разработчик" className={styles.heroLabel} />
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
                 className={styles.heroLabelWrap}
-              ></motion.div>
+              >
+                <MatrixText text="Frontend-разработчик" className={styles.heroLabel} />
+              </motion.div>
             </motion.div>
             <div className={styles.heroText}>
               <h1 className={styles.heroTitle}>

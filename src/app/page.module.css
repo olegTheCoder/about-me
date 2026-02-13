@@ -254,6 +254,13 @@
     padding: 5rem 0.75rem 2rem;
   }
 
+  .heroModel {
+    width: min(260px, 85vw);
+    height: min(260px, 85vw);
+    max-width: 260px;
+    max-height: 260px;
+  }
+
   .heroTitle {
     font-size: clamp(2rem, 7vw, 3rem);
   }
@@ -266,6 +273,7 @@
   .ctaSecondary {
     font-size: 0.85rem;
     padding: 0.75rem 1.5rem;
+    min-width: 9rem;
   }
 
   .section {
@@ -294,17 +302,16 @@
   }
 }
 
-/* Hero — модель сразу под хедером, под ней надпись */
+/* Hero — центрирование и адаптив */
 .hero {
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
-  padding-top: 6rem;
-  padding-right: 1.5rem;
-  padding-bottom: 4rem;
-  padding-left: 1.5rem;
+  justify-content: center;
+  padding: 6rem 1rem 4rem;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
   background:
     radial-gradient(ellipse 80% 50% at 20% 40%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse 60% 40% at 80% 60%, rgba(37, 99, 235, 0.06) 0%, transparent 50%),
@@ -320,14 +327,15 @@
 
 .heroContent {
   max-width: 1120px;
-  margin: 0 auto;
   width: 100%;
+  margin: 0 auto;
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  box-sizing: border-box;
 }
 
 .heroModelBlock {
@@ -352,12 +360,21 @@
   order: 2;
 }
 
-/* Планшет и десктоп: две колонки, выравнивание по левому краю */
+/* Планшет: две колонки, центрированный блок */
 @media (min-width: 768px) {
+  .hero {
+    padding: 6rem 1.5rem 4rem;
+  }
+
   .heroContent {
     flex-direction: row;
     align-items: flex-start;
     gap: 3rem;
+  }
+
+  .heroModel {
+    width: 320px;
+    height: 320px;
   }
 
   .heroText {
@@ -390,10 +407,27 @@
   }
 }
 
-/* Широкий экран — фиксированный размер заголовка для ровного вида */
+/* Десктоп: модель побольше */
+@media (min-width: 1024px) {
+  .heroModel {
+    width: 380px;
+    height: 380px;
+  }
+
+  .heroContent {
+    gap: 4rem;
+  }
+}
+
+/* Широкий экран — фиксированный размер заголовка и модели */
 @media (min-width: 1200px) {
   .heroTitle {
     font-size: 5rem;
+  }
+
+  .heroModel {
+    width: 400px;
+    height: 400px;
   }
 }
 
@@ -406,8 +440,10 @@
 
 .heroModel {
   flex-shrink: 0;
-  width: 400px;
-  height: 400px;
+  width: min(400px, 85vw);
+  height: min(400px, 85vw);
+  max-width: 400px;
+  max-height: 400px;
   position: relative;
 }
 
@@ -463,6 +499,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.875rem 1.75rem;
+  min-width: 11rem;
   background: var(--accent);
   color: #fff;
   font-weight: 600;
@@ -473,7 +510,6 @@
     transform 0.15s;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
   text-align: center;
-  min-width: fit-content;
 }
 
 .ctaPrimary:hover {
@@ -486,6 +522,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.875rem 1.75rem;
+  min-width: 11rem;
   border: 1px solid var(--border);
   color: var(--text-primary);
   font-weight: 500;
@@ -497,7 +534,6 @@
     color 0.2s,
     box-shadow 0.2s;
   text-align: center;
-  min-width: fit-content;
 }
 
 .ctaSecondary:hover {
@@ -603,7 +639,7 @@
   align-items: start;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .hero {
     padding: 5.5rem 1rem 3rem;
     min-height: auto;
@@ -614,9 +650,10 @@
   }
 
   .heroModel {
-    width: 100%;
+    width: min(300px, 80vw);
+    height: min(300px, 80vw);
     max-width: 300px;
-    height: 300px;
+    max-height: 300px;
   }
 
   .heroTitle {
