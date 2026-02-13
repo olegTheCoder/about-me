@@ -239,11 +239,19 @@
     font-size: 0.65rem;
     padding: 0.25rem 0.5rem;
   }
+
+  .hero {
+    padding: 4.5rem 0.75rem 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
 }
 
 @media (max-width: 480px) {
   .hero {
-    padding: 4rem 0.75rem 2rem;
+    padding: 5rem 0.75rem 2rem;
   }
 
   .heroTitle {
@@ -291,7 +299,7 @@
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
-  padding-top: 4.25rem;
+  padding-top: 6rem;
   padding-right: 1.5rem;
   padding-bottom: 4rem;
   padding-left: 1.5rem;
@@ -344,26 +352,55 @@
   order: 2;
 }
 
-/* Десктоп: две колонки, контент второй колонки начинается сверху */
-@media (min-width: 769px) {
+/* Планшет и десктоп: две колонки, выравнивание по левому краю */
+@media (min-width: 768px) {
   .heroContent {
     flex-direction: row;
     align-items: flex-start;
-    gap: 4rem;
+    gap: 3rem;
   }
 
   .heroText {
     max-width: none;
+    min-width: 0;
+    flex: 1;
     text-align: left;
     align-self: flex-start;
+    padding-left: 0;
+  }
+
+  .heroText .heroTitle,
+  .heroText .heroTagline {
+    text-align: left;
+  }
+
+  .heroTitle {
+    font-size: clamp(3.25rem, 5vw, 4.5rem);
+    margin-right: 0;
   }
 
   .heroTagline {
-    margin-left: 0;
+    margin: 0 0 3rem;
+    max-width: 38ch;
+    text-align: left;
   }
 
   .heroCta {
     justify-content: flex-start;
+  }
+}
+
+/* Широкий экран — фиксированный размер заголовка для ровного вида */
+@media (min-width: 1200px) {
+  .heroTitle {
+    font-size: 5rem;
+  }
+}
+
+/* Очень широкий экран */
+@media (min-width: 1600px) {
+  .heroTitle {
+    font-size: 5.5rem;
   }
 }
 
@@ -395,12 +432,16 @@
 
 .heroTitle {
   font-family: 'Riviera', var(--font-display), serif;
-  font-size: clamp(3.5rem, 11vw, 6.5rem);
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text-primary);
   margin: 0 0 1.25rem;
+}
+
+.heroTitle span {
+  display: block;
 }
 
 .heroTagline {
@@ -408,14 +449,13 @@
   line-height: 1.7;
   color: var(--text-secondary);
   max-width: 36ch;
-  margin: 0 auto 3rem;
 }
 
 .heroCta {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .ctaPrimary {
@@ -565,7 +605,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 5rem 1rem 3rem;
+    padding: 5.5rem 1rem 3rem;
     min-height: auto;
   }
 

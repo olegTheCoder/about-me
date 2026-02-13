@@ -3,12 +3,12 @@
 import { MatrixText } from '@/components/MatrixText';
 import { Model3D } from '@/components/Model3D';
 import { useTheme } from '@/components/ThemeProvider';
-import { useState, useEffect } from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from '@/components/Timeline';
 import { TimelineIcon } from '@/components/TimelineIcon';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, GraduationCap, Menu, Moon, Sun, X } from 'lucide-react';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import type { IconType } from 'react-icons';
 import {
   SiGit,
@@ -217,14 +217,13 @@ export default function HomePage() {
               <div className={styles.heroModel}>
                 {isMounted && <Model3D modelPath="/models/model.glb" className={styles.model3D} />}
               </div>
+              <MatrixText text="Frontend-разработчик" className={styles.heroLabel} />
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
                 className={styles.heroLabelWrap}
-              >
-                <MatrixText text="Frontend-разработчик" className={styles.heroLabel} />
-              </motion.div>
+              ></motion.div>
             </motion.div>
             <div className={styles.heroText}>
               <h1 className={styles.heroTitle}>
@@ -235,7 +234,6 @@ export default function HomePage() {
                 >
                   Олег
                 </motion.span>
-                <br />
                 <motion.span
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
