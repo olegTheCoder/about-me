@@ -490,16 +490,19 @@ export default function HomePage() {
                   title: t('projects.item1.title'),
                   desc: t('projects.item1.desc'),
                   href: 'https://www.rustore.ru/',
+                  logo: '/logos/vk.png',
                 },
                 {
                   title: t('projects.item2.title'),
                   desc: t('projects.item2.desc'),
                   href: 'https://www.beeline.ru/',
+                  logo: '/logos/beeline.png',
                 },
                 {
                   title: t('projects.item3.title'),
                   desc: t('projects.item3.desc'),
                   href: '#',
+                  logo: '/logos/beeline.png',
                 },
               ].map((project, i) => (
                 <motion.li
@@ -512,6 +515,13 @@ export default function HomePage() {
                   whileHover={{ y: -4 }}
                 >
                   <a href={project.href} className={styles.projectLink}>
+                    <span
+                      className={styles.projectLogo}
+                      style={{
+                        backgroundImage: `url(${project.logo})`,
+                      }}
+                      aria-hidden
+                    />
                     <span className={styles.projectTitle}>{project.title}</span>
                     <span className={styles.projectDesc}>{project.desc}</span>
                   </a>

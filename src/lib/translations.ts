@@ -40,31 +40,31 @@ export const translations = {
       title: 'Опыт',
       job1: {
         period: 'Сен 2023 — н.в.',
-        desc: 'Бизнес-юнит RuStore (магазин приложений). Нахожусь на проекте с момента его создания и реализую большие продуктовые/технические задачи. Помимо разработки в обязанности входит оценка и декомпозиция задач, написание unit-тестов и e2e-тестов, code-review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, SCSS/SASS, Gitlab, Webpack, REST, Jest, Playwright.',
+        desc: 'Фронтенд в бизнес-юните RuStore. Участвую в продукте с самого старта: крупные фичи, оценка и декомпозиция задач, unit и e2e-тесты, code-review. Работа в распределённой команде по гибким процессам.',
       },
       job2: {
         period: 'Окт 2022 — Сен 2023',
-        desc: 'Создание и развитие веб-сервисов на старте проекта Rustore. TypeScript, React, Redux, React-Query, Jotai, ChartJS, SCSS/SASS, Gitlab, Webpack, REST, Jest, Playwright.',
+        desc: 'Фронтенд на этапе запуска RuStore: проектирование и разработка веб-сервисов, участие в выборе стека и процессов. Работа в стартап-режиме в составе команды red_mad_robot.',
       },
       job3: {
         company: 'Билайн',
         period: 'Мар 2022 — Окт 2022',
-        desc: 'Работал в отделе маркетинговых исследований Growth Hacking. Основная роль — быстрые изменения интерфейсов и создание прототипов для A/B-тестирования. Помимо работы с основным сайтом, создавал welcome-коммуникацию (pop-up, квизы) для совместного проекта Билайна и Альфа-Банка. Дополнительно реализовал соло-проект для внутреннего пользования сотрудников: веб-система генерации UTM-меток по определённым правилам и сохранением в БД. JavaScript, TypeScript, React, Redux, SCSS/SASS, Styled-components, Material-UI, Ant Design, Gitlab, Webpack, Node.js, REST, JWT.',
+        desc: 'Фронтенд в отделе Growth Hacking: быстрые изменения интерфейсов, прототипы для A/B-тестов, кросс-функциональные задачи с маркетингом. Опыт соло-разработки внутренних инструментов.',
       },
     },
     projects: {
       title: 'Проекты',
       item1: {
         title: 'RuStore',
-        desc: 'Магазин приложений (VK). Разработка с нуля: продукты и инфраструктура, тесты, code-review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, Jest, Playwright.',
+        desc: 'Магазин приложений (VK). Разработка с нуля: продукты и инфраструктура, unit и e2e-тесты, code-review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, Jest, Playwright.',
       },
       item2: {
-        title: 'Рост и A/B-тесты, билайн',
-        desc: 'Прототипы и быстрые изменения интерфейсов для Growth Hacking. Welcome-коммуникация для совместного проекта с Альфа-Банком. React, Redux, Material-UI, Ant Design.',
+        title: 'Рост и A/B-тесты, Билайн',
+        desc: 'Прототипы и быстрые изменения интерфейсов для Growth Hacking. Welcome-коммуникация (pop-up, квизы) для совместного проекта Билайн и Альфа-Банк. React, Redux, Material-UI, Ant Design.',
       },
       item3: {
         title: 'UTM-генератор',
-        desc: 'Соло-проект для внутреннего использования: веб-система генерации UTM-меток по правилам с сохранением в БД. Node.js, React.',
+        desc: 'Соло-проект для внутреннего использования в Билайне: веб-система генерации UTM-меток по правилам с сохранением в БД. Node.js, React.',
       },
     },
     education: {
@@ -128,33 +128,33 @@ export const translations = {
       job1: {
         role: 'Frontend developer',
         period: 'Sep 2023 — present',
-        desc: 'RuStore business unit (app store). On the project from day one; implementing major product and technical initiatives. Besides development: task estimation and decomposition, unit and e2e testing, code review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, SCSS/SASS, Gitlab, Webpack, REST, Jest, Playwright.',
+        desc: 'Frontend in RuStore business unit. On the product from day one: major features, task estimation and decomposition, unit and e2e testing, code review. Working in a distributed team with agile processes.',
       },
       job2: {
         role: 'Frontend developer',
         period: 'Oct 2022 — Sep 2023',
-        desc: 'Building and scaling web services at the start of RuStore. TypeScript, React, Redux, React-Query, Jotai, ChartJS, SCSS/SASS, Gitlab, Webpack, REST, Jest, Playwright.',
+        desc: 'Frontend at RuStore launch: designing and building web services, contributing to stack and process decisions. Startup-style work as part of the red_mad_robot team.',
       },
       job3: {
         role: 'Frontend developer',
         company: 'Beeline',
         period: 'Mar 2022 — Oct 2022',
-        desc: 'Worked in the Growth Hacking marketing research unit. Main focus: rapid UI changes and prototypes for A/B testing. Besides the main site, built welcome flows (pop-ups, quizzes) for a joint Beeline and Alfa-Bank project. Also delivered a solo internal tool: a web app for generating UTM tags by rules with DB storage. JavaScript, TypeScript, React, Redux, SCSS/SASS, Styled-components, Material-UI, Ant Design, Gitlab, Webpack, Node.js, REST, JWT.',
+        desc: 'Frontend in the Growth Hacking unit: rapid UI changes, prototypes for A/B tests, cross-functional work with marketing. Experience building internal tools as sole developer.',
       },
     },
     projects: {
       title: 'Projects',
       item1: {
         title: 'RuStore',
-        desc: 'App store (VK). Development from scratch: product and infrastructure, tests, code review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, Jest, Playwright.',
+        desc: 'App store (VK). Development from scratch: product and infrastructure, unit and e2e tests, code review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, Jest, Playwright.',
       },
       item2: {
         title: 'Growth & A/B tests, Beeline',
-        desc: 'Prototypes and fast UI changes for Growth Hacking. Welcome flows for a joint project with Alfa-Bank. React, Redux, Material-UI, Ant Design.',
+        desc: 'Prototypes and fast UI changes for Growth Hacking. Welcome flows (pop-ups, quizzes) for a joint Beeline and Alfa-Bank project. React, Redux, Material-UI, Ant Design.',
       },
       item3: {
         title: 'UTM generator',
-        desc: 'Solo project for internal use: web app for generating UTM tags by rules with DB storage. Node.js, React.',
+        desc: 'Solo internal tool at Beeline: web app for generating UTM tags by rules with DB storage. Node.js, React.',
       },
     },
     education: {

@@ -1280,6 +1280,17 @@
   padding: 1.5rem;
 }
 
+.projectLogo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.75rem;
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
 .projectTitle {
   font-family: 'Igra Sans', var(--font-sans), sans-serif;
   font-size: 1.25rem;
