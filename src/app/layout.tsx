@@ -1,6 +1,8 @@
 import cn from 'classnames';
 import type { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
+import { LocaleProvider } from '@/components/LocaleProvider';
+import { LocaleScript } from '@/components/LocaleScript';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { ThemeScript } from '@/components/ThemeScript';
 import './globals.css';
@@ -44,7 +46,10 @@ export const RootLayout = ({ children }: { children: React.ReactNode }) => {
       </head>
       <body className={cn(inter.variable, montserrat.variable)}>
         <ThemeScript />
-        <ThemeProvider>{children}</ThemeProvider>
+        <LocaleScript />
+        <ThemeProvider>
+          <LocaleProvider>{children}</LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

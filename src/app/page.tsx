@@ -1,5 +1,6 @@
 'use client';
 
+import { useLocale } from '@/components/LocaleProvider';
 import { MatrixText } from '@/components/MatrixText';
 import { Model3D } from '@/components/Model3D';
 import { useTheme } from '@/components/ThemeProvider';
@@ -11,8 +12,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import type { IconType } from 'react-icons';
 import {
+  SiChartdotjs,
+  SiCss3,
   SiGit,
-  SiGraphql,
+  SiHtml5,
   SiJavascript,
   SiJest,
   SiNodedotjs,
@@ -48,7 +51,9 @@ const SKILLS: { name: string; Icon: IconType }[] = [
   { name: 'Jotai', Icon: Code2 },
   { name: 'Node.js', Icon: SiNodedotjs },
   { name: 'REST API', Icon: Code2 },
-  { name: 'GraphQL', Icon: SiGraphql },
+  { name: 'ChartJS', Icon: SiChartdotjs },
+  { name: 'CSS', Icon: SiCss3 },
+  { name: 'HTML', Icon: SiHtml5 },
   { name: 'Jest', Icon: SiJest },
   { name: 'Playwright', Icon: Code2 },
   { name: 'Webpack', Icon: SiWebpack },
@@ -58,6 +63,7 @@ const SKILLS: { name: string; Icon: IconType }[] = [
 
 export default function HomePage() {
   const { theme, toggleTheme } = useTheme();
+  const { locale, setLocale, t } = useLocale();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -93,11 +99,10 @@ export default function HomePage() {
   };
 
   const navItems = [
-    { href: '#about', label: 'Обо мне' },
-    { href: '#experience', label: 'Опыт' },
-    { href: '#projects', label: 'Проекты' },
-    { href: '#education', label: 'Образование' },
-    { href: '#contact', label: 'Контакты' },
+    { href: '#about', label: t('nav.about') },
+    { href: '#experience', label: t('nav.experience') },
+    { href: '#projects', label: t('nav.projects') },
+    { href: '#contact', label: t('nav.contact') },
   ];
 
   return (
@@ -124,22 +129,35 @@ export default function HomePage() {
                 {item.label}
               </a>
             ))}
-            <motion.button
-              type="button"
-              className={styles.themeToggle}
-              onClick={toggleTheme}
-              aria-label={theme === 'light' ? 'Включить тёмную тему' : 'Включить светлую тему'}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-            </motion.button>
+            <div className={styles.navToggles}>
+              <motion.button
+                type="button"
+                className={styles.themeToggle}
+                onClick={toggleTheme}
+                aria-label={theme === 'light' ? t('aria.themeDark') : t('aria.themeLight')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+              </motion.button>
+              <motion.button
+                type="button"
+                className={styles.langToggle}
+                onClick={() => setLocale(locale === 'ru' ? 'en' : 'ru')}
+                aria-label={t('aria.langSwitch')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                title={locale === 'ru' ? 'English' : 'Русский'}
+              >
+                {locale === 'ru' ? 'EN' : 'RU'}
+              </motion.button>
+            </div>
           </div>
           <motion.button
             type="button"
             className={styles.mobileMenuButton}
             onClick={toggleMobileMenu}
-            aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+            aria-label={isMobileMenuOpen ? t('aria.menuClose') : t('aria.menuOpen')}
             aria-expanded={isMobileMenuOpen}
             whileTap={{ scale: 0.95 }}
           >
@@ -171,27 +189,42 @@ export default function HomePage() {
                       {item.label}
                     </motion.a>
                   ))}
-                  <motion.button
-                    type="button"
-                    className={styles.mobileThemeToggle}
-                    onClick={() => {
-                      toggleTheme();
-                      closeMobileMenu();
-                    }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: navItems.length * 0.05 }}
-                  >
-                    {theme === 'light' ? (
-                      <>
-                        <Moon size={20} /> Тёмная тема
-                      </>
-                    ) : (
-                      <>
-                        <Sun size={20} /> Светлая тема
-                      </>
-                    )}
-                  </motion.button>
+                  <div className={styles.mobileNavToggles}>
+                    <motion.button
+                      type="button"
+                      className={styles.mobileThemeToggle}
+                      onClick={() => {
+                        toggleTheme();
+                        closeMobileMenu();
+                      }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: navItems.length * 0.05 }}
+                    >
+                      {theme === 'light' ? (
+                        <>
+                          <Moon size={20} /> {t('aria.themeDarkLabel')}
+                        </>
+                      ) : (
+                        <>
+                          <Sun size={20} /> {t('aria.themeLightLabel')}
+                        </>
+                      )}
+                    </motion.button>
+                    <motion.button
+                      type="button"
+                      className={styles.mobileLangToggle}
+                      onClick={() => {
+                        setLocale(locale === 'ru' ? 'en' : 'ru');
+                        closeMobileMenu();
+                      }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: (navItems.length + 1) * 0.05 }}
+                    >
+                      {locale === 'ru' ? 'English' : 'Русский'}
+                    </motion.button>
+                  </div>
                 </div>
               </motion.div>
             )}
@@ -223,7 +256,7 @@ export default function HomePage() {
                 transition={{ delay: 0.5, duration: 0.5 }}
                 className={styles.heroLabelWrap}
               >
-                <MatrixText text="Фронтенд-разработчик" className={styles.heroLabel} />
+                <MatrixText text={t('hero.label')} className={styles.heroLabel} />
               </motion.div>
             </motion.div>
             <div className={styles.heroText}>
@@ -233,14 +266,14 @@ export default function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  Олег
+                  {t('nameFirst')}
                 </motion.span>
                 <motion.span
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  Грачев
+                  {t('nameLast')}
                 </motion.span>
               </h1>
               <motion.p
@@ -249,9 +282,7 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
               >
-                Опыт работы в топовых it-компаниях: RuStore, Билайн и red_mad_robot. Обладаю лучшими
-                практиками веб-разработки в больших распределенных командах. Есть реализованные
-                самостоятельные проекты.
+                {t('hero.tagline')}
               </motion.p>
               <motion.div
                 className={styles.heroCta}
@@ -265,7 +296,7 @@ export default function HomePage() {
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Связаться
+                  {t('hero.ctaContact')}
                 </motion.a>
                 <motion.a
                   href="#projects"
@@ -273,7 +304,7 @@ export default function HomePage() {
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Смотреть работы
+                  {t('hero.ctaProjects')}
                 </motion.a>
               </motion.div>
             </div>
@@ -282,35 +313,72 @@ export default function HomePage() {
 
         <section id="about" className={styles.section}>
           <div className={styles.container}>
-            <motion.div className={styles.aboutGrid} {...fadeIn}>
-              <motion.div
-                className={styles.aboutImage}
-                initial={{ opacity: 0, x: -32, scale: 0.96 }}
-                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Image
-                  src="/images/about-photo.png"
-                  alt="Олег Грачев"
-                  width={320}
-                  height={400}
-                  sizes="(max-width: 768px) 100vw, 320px"
-                  loading="lazy"
-                  className={styles.aboutPhoto}
-                />
-              </motion.div>
-              <div className={styles.aboutText}>
-                <h2 className={styles.sectionTitle}>Обо мне</h2>
-                <p className={styles.aboutLead}>Опыт работы - 4 года. Москва.</p>
-                <p className={styles.aboutBody}>
-                  Мне повезло работать в сильных айти-командах Билайна, red_mad_robot и RuStore.
-                  Каждый проект имел большую значимость для пользователей, что помимо высокой
-                  ответственности давало и личную гордость за реализованные сервисы. В короткий срок
-                  я приобрёл лучшие практики веб-разработки, работая как в больших распределённых
-                  командах, так и в одиночку.
-                </p>
-              </div>
+            <motion.h2 className={styles.sectionTitle} {...fadeIn}>
+              {t('about.title')}
+            </motion.h2>
+            <motion.div
+              className={styles.aboutPolaroids}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+                hidden: {},
+              }}
+            >
+              {[
+                {
+                  src: '/images/about-photo.png',
+                  altKey: 'about.photoPortrait',
+                  rotation: 'polaroidRot1',
+                  position: 'polaroidPos1',
+                  zIndex: 2,
+                },
+                {
+                  src: '/images/about-vk.png',
+                  altKey: 'about.photoVk',
+                  rotation: 'polaroidRot2',
+                  position: 'polaroidPos2',
+                  zIndex: 4,
+                },
+                {
+                  src: '/images/about-rustore-expedition.png',
+                  altKey: 'about.photoExpedition',
+                  rotation: 'polaroidRot3',
+                  position: 'polaroidPos3',
+                  zIndex: 1,
+                },
+                {
+                  src: '/images/about-rustore-balloons.png',
+                  altKey: 'about.photoBalloons',
+                  rotation: 'polaroidRot4',
+                  position: 'polaroidPos4',
+                  zIndex: 3,
+                },
+              ].map((item) => (
+                <motion.div
+                  key={item.src}
+                  className={`${styles.polaroidCard} ${styles[item.rotation]} ${styles[item.position]}`}
+                  style={{ zIndex: item.zIndex }}
+                  variants={{
+                    hidden: { opacity: 0, y: 28 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <div className={styles.polaroidInner}>
+                    <Image
+                      src={item.src}
+                      alt={t(item.altKey)}
+                      width={280}
+                      height={320}
+                      sizes="(max-width: 768px) 45vw, 280px"
+                      loading="lazy"
+                      className={styles.polaroidImg}
+                    />
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
           </div>
         </section>
@@ -318,7 +386,7 @@ export default function HomePage() {
         <section id="skills" className={styles.section}>
           <div className={styles.container}>
             <motion.h2 className={styles.sectionTitle} {...fadeIn}>
-              Навыки
+              {t('skills.title')}
             </motion.h2>
             <motion.ul className={styles.skillsList} {...stagger}>
               {SKILLS.map((skill, i) => (
@@ -342,31 +410,28 @@ export default function HomePage() {
         <section id="experience" className={styles.section}>
           <div className={styles.container}>
             <motion.h2 className={styles.sectionTitle} {...fadeIn}>
-              Опыт
+              {t('experience.title')}
             </motion.h2>
             <VerticalTimeline lineColor="var(--timeline-line)" className={styles.verticalTimeline}>
               {[
                 {
-                  role: 'Frontend developer',
                   company: 'VK',
-                  period: 'Сен 2023 — н.в.',
-                  desc: 'Бизнес-юнит RuStore (магазин приложений). Нахожусь на проекте с момента его создания и реализую большие продуктовые/технические задачи. Помимо разработки в обязанности входит оценка и декомпозиция задач, написание unit-тестов и e2e-тестов, code-review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, SCSS/SASS, Gitlab, Webpack, REST, Jest, Playwright.',
+                  period: t('experience.job1.period'),
+                  desc: t('experience.job1.desc'),
                   logo: '/logos/vk.png',
                   url: 'https://www.rustore.ru/',
                 },
                 {
-                  role: 'Frontend developer',
                   company: 'red_mad_robot',
-                  period: 'Окт 2022 — Сен 2023',
-                  desc: 'Создание и развитие веб-сервисов на старте проекта Rustore. TypeScript, React, Redux, React-Query, Jotai, ChartJS, SCSS/SASS, Gitlab, Webpack, REST, Jest, Playwright.',
+                  period: t('experience.job2.period'),
+                  desc: t('experience.job2.desc'),
                   logo: '/logos/red-mad-robot.png',
                   url: 'https://redmadrobot.com/',
                 },
                 {
-                  role: 'Frontend-разработчик',
-                  company: 'Билайн',
-                  period: 'Мар 2022 — Окт 2022',
-                  desc: 'Работал в отделе маркетинговых исследований Growth Hacking. Основная роль — быстрые изменения интерфейсов и создание прототипов для A/B-тестирования. Помимо работы с основным сайтом, создавал welcome-коммуникацию (pop-up, квизы) для совместного проекта Билайна и Альфа-Банка. Дополнительно реализовал соло-проект для внутреннего пользования сотрудников: веб-система генерации UTM-меток по определённым правилам и сохранением в БД. JavaScript, TypeScript, React, Redux, SCSS/SASS, Styled-components, Material-UI, Ant Design, Gitlab, Webpack, Node.js, REST, JWT.',
+                  company: t('experience.job3.company'),
+                  period: t('experience.job3.period'),
+                  desc: t('experience.job3.desc'),
                   logo: '/logos/beeline.png',
                   url: 'https://www.beeline.ru/',
                 },
@@ -405,9 +470,7 @@ export default function HomePage() {
                     transition={{ delay: index * 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     whileHover={{ scale: 1.02 }}
                   >
-                    <h3 className={styles.timelineRole}>
-                      {job.role} · {job.company}
-                    </h3>
+                    <h3 className={styles.timelineRole}>{job.company}</h3>
                     <p className={styles.timelineDesc}>{job.desc}</p>
                   </motion.a>
                 </VerticalTimelineElement>
@@ -419,23 +482,23 @@ export default function HomePage() {
         <section id="projects" className={styles.section}>
           <div className={styles.container}>
             <motion.h2 className={styles.sectionTitle} {...fadeIn}>
-              Проекты
+              {t('projects.title')}
             </motion.h2>
             <motion.ul className={styles.projectsGrid} {...stagger}>
               {[
                 {
-                  title: 'RuStore',
-                  desc: 'Магазин приложений (VK). Разработка с нуля: продукты и инфраструктура, тесты, code-review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, Jest, Playwright.',
+                  title: t('projects.item1.title'),
+                  desc: t('projects.item1.desc'),
                   href: 'https://www.rustore.ru/',
                 },
                 {
-                  title: 'Рост и A/B-тесты, билайн',
-                  desc: 'Прототипы и быстрые изменения интерфейсов для Growth Hacking. Welcome-коммуникация для совместного проекта с Альфа-Банком. React, Redux, Material-UI, Ant Design.',
+                  title: t('projects.item2.title'),
+                  desc: t('projects.item2.desc'),
                   href: 'https://www.beeline.ru/',
                 },
                 {
-                  title: 'UTM-генератор',
-                  desc: 'Соло-проект для внутреннего использования: веб-система генерации UTM-меток по правилам с сохранением в БД. Node.js, React.',
+                  title: t('projects.item3.title'),
+                  desc: t('projects.item3.desc'),
                   href: '#',
                 },
               ].map((project, i) => (
@@ -458,60 +521,18 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="education" className={styles.section}>
-          <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...fadeIn}>
-              Образование
-            </motion.h2>
-            <VerticalTimeline lineColor="var(--timeline-line)" className={styles.verticalTimeline}>
-              {[
-                {
-                  role: 'Мировая экономика и международные финансы',
-                  company: 'Академия труда и социальных отношений',
-                  period: '2012',
-                  desc: 'Экономист. Высшее образование.',
-                },
-              ].map((edu) => (
-                <VerticalTimelineElement
-                  key={edu.period}
-                  className={styles.timelineElement}
-                  contentStyle={{
-                    background: 'var(--card-bg)',
-                    color: 'var(--text-primary)',
-                    boxShadow: 'var(--card-shadow)',
-                    border: '1px solid var(--border)',
-                  }}
-                  contentArrowStyle={{ borderRight: '7px solid var(--card-bg)' }}
-                  date={edu.period}
-                  dateClassName={styles.timelineDate}
-                  iconStyle={{
-                    background: 'var(--accent)',
-                    color: '#fff',
-                  }}
-                  icon={<GraduationCap size={20} />}
-                >
-                  <h3 className={styles.timelineRole}>
-                    {edu.role} · {edu.company}
-                  </h3>
-                  <p className={styles.timelineDesc}>{edu.desc}</p>
-                </VerticalTimelineElement>
-              ))}
-            </VerticalTimeline>
-          </div>
-        </section>
-
         <section id="courses" className={styles.section}>
           <div className={styles.container}>
             <motion.h2 className={styles.sectionTitle} {...fadeIn}>
-              Повышение квалификации
+              {t('courses.title')}
             </motion.h2>
             <VerticalTimeline lineColor="var(--timeline-line)" className={styles.verticalTimeline}>
               {[
                 {
-                  role: 'Школа 21',
-                  company: 'Сбер',
-                  period: '2021',
-                  desc: 'Образовательная программа по программированию.',
+                  role: t('courses.item1.role'),
+                  company: t('courses.item1.company'),
+                  period: t('courses.item1.period'),
+                  desc: t('courses.item1.desc'),
                 },
               ].map((course) => (
                 <VerticalTimelineElement
@@ -545,18 +566,8 @@ export default function HomePage() {
         <section id="contact" className={styles.section}>
           <div className={styles.container}>
             <motion.div className={styles.contactBlock} {...fadeIn}>
-              <h2 className={styles.sectionTitle}>Контакты</h2>
+              <h2 className={styles.sectionTitle}>{t('contact.title')}</h2>
               <div className={styles.contactLinks}>
-                <motion.a
-                  href="tel:+79067599334"
-                  className={styles.contactLink}
-                  initial={{ opacity: 0, x: -8 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                >
-                  +7 (906) 759-93-34
-                </motion.a>
                 <motion.a
                   href="https://t.me/olegthecoder"
                   target="_blank"
@@ -570,14 +581,16 @@ export default function HomePage() {
                   Telegram · @olegthecoder
                 </motion.a>
                 <motion.a
-                  href="mailto:olegthecoder89@gmail.com"
+                  href="https://github.com/olegthecoder"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.contactLink}
                   initial={{ opacity: 0, x: -8 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.26 }}
+                  transition={{ delay: 0.18 }}
                 >
-                  olegthecoder89@gmail.com
+                  GitHub · olegthecoder
                 </motion.a>
               </div>
             </motion.div>
@@ -592,7 +605,9 @@ export default function HomePage() {
         viewport={{ once: true }}
       >
         <div className={styles.container}>
-          <p className={styles.footerText}>© {new Date().getFullYear()} Олег Грачев</p>
+          <p className={styles.footerText}>
+            © {new Date().getFullYear()} {t('footer.copyright')}
+          </p>
         </div>
       </motion.footer>
     </>

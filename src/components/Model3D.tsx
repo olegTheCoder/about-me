@@ -13,6 +13,8 @@ interface ModelViewerAttributes extends React.HTMLAttributes<HTMLElement> {
   src?: string;
   alt?: string;
   'auto-rotate'?: boolean;
+  'auto-rotate-delay'?: number;
+  'rotation-per-second'?: string;
   'camera-controls'?: boolean;
   'interaction-policy'?: string;
   'interaction-prompt'?: string;
@@ -93,6 +95,10 @@ export function Model3D({ modelPath, className }: Model3DProps) {
 
     const handleLoad = () => {
       setHasError(false);
+      const mv = modelViewer as HTMLElement & { resetTurntableRotation?: (theta: number) => void };
+      if (typeof mv.resetTurntableRotation === 'function') {
+        mv.resetTurntableRotation(-Math.PI / 2);
+      }
     };
 
     // Слушаем события загрузки и ошибки модели
@@ -150,6 +156,8 @@ export function Model3D({ modelPath, className }: Model3DProps) {
         src={modelPath}
         alt="3D Model"
         auto-rotate
+        auto-rotate-delay={1000}
+        rotation-per-second="1rad"
         camera-controls
         interaction-policy="allow-when-focused"
         interaction-prompt="none"
