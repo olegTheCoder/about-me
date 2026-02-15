@@ -1,37 +1,36 @@
 /**
- * Варианты анимаций в стиле KTS.tech:
- * появление секций при скролле, каскад элементов, раскрытие заголовков.
+ * Варианты анимаций: появление секций при скролле, каскад элементов, заголовки.
  */
 
 const easeOutExpo = [0.19, 1, 0.22, 1] as const;
 const easeOutQuart = [0.25, 0.46, 0.45, 0.94] as const;
 
 /** Появление элемента снизу при скролле (секции, блоки) */
-export const ktsFadeInUp = {
+export const fadeInUp = {
   initial: { opacity: 0, y: 36 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-56px' },
   transition: { duration: 0.6, ease: easeOutExpo },
 };
 
-/** Раскрытие заголовка секции (чуть больший сдвиг + плавность) */
-export const ktsSectionTitle = {
+/** Раскрытие заголовка секции */
+export const sectionTitle = {
   initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-48px' },
   transition: { duration: 0.55, ease: easeOutQuart },
 };
 
-/** Контейнер для каскадной анимации (использовать initial="hidden" whileInView="visible" variants={ktsStaggerContainer}) */
-export const ktsStaggerContainer = {
+/** Контейнер для каскадной анимации (initial="hidden" whileInView="visible" variants={staggerContainer}) */
+export const staggerContainer = {
   visible: {
     transition: { staggerChildren: 0.1, delayChildren: 0.15 },
   },
   hidden: {},
 };
 
-/** Варианты элемента в каскаде (variants={ktsStaggerItem}) */
-export const ktsStaggerItem = {
+/** Варианты элемента в каскаде (variants={staggerItem}) */
+export const staggerItem = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
@@ -41,7 +40,7 @@ export const ktsStaggerItem = {
 };
 
 /** Пропсы для списка с каскадом: spread на motion.ul */
-export const ktsStaggerListProps = {
+export const staggerListProps = {
   initial: 'hidden' as const,
   whileInView: 'visible' as const,
   viewport: { once: true, margin: '-40px' },
@@ -54,14 +53,14 @@ export const ktsStaggerListProps = {
 };
 
 /** Варианты для polaroid-карточек / сеток с каскадом */
-export const ktsStaggerCard = {
+export const staggerCard = {
   visible: {
     transition: { staggerChildren: 0.12, delayChildren: 0.12 },
   },
   hidden: {},
 };
 
-export const ktsStaggerCardItem = {
+export const staggerCardItem = {
   hidden: { opacity: 0, y: 32 },
   visible: {
     opacity: 1,
@@ -71,7 +70,7 @@ export const ktsStaggerCardItem = {
 };
 
 /** Ссылка/кнопка в футере или контактах — лёгкое появление */
-export const ktsFadeIn = {
+export const fadeIn = {
   initial: { opacity: 0, x: -10 },
   whileInView: { opacity: 1, x: 0 },
   viewport: { once: true },
@@ -79,15 +78,15 @@ export const ktsFadeIn = {
 };
 
 /** Футер — плавное появление */
-export const ktsFooter = {
+export const footerFadeIn = {
   initial: { opacity: 0 },
   whileInView: { opacity: 1 },
   viewport: { once: true },
   transition: { duration: 0.5 },
 };
 
-/** KTS-стиль: появление справа-сверху с масштабом (как на kts.tech) */
-export const ktsEntrance = {
+/** Появление справа-сверху с масштабом */
+export const entrance = {
   initial: { opacity: 0, x: '30%', y: '-30%', scale: 1.4 },
   whileInView: { opacity: 1, x: 0, y: 0, scale: 1 },
   viewport: { once: true, margin: '-40px' },
@@ -95,7 +94,7 @@ export const ktsEntrance = {
 };
 
 /** Лёгкое покачивание (rotate -6deg … 6deg), для карточек/декора */
-export const ktsSway = {
+export const sway = {
   initial: { rotate: -6 },
   whileInView: { rotate: 6 },
   viewport: { once: false, amount: 0.3 },

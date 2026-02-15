@@ -1,6 +1,6 @@
 'use client';
 
-import { ktsSectionTitle } from '@/lib/animations';
+import { sectionTitle } from '@/lib/animations';
 import { motion } from 'framer-motion';
 import { VerticalTimeline, VerticalTimelineElement } from '@/components/Timeline';
 import { TimelineIcon } from '@/components/TimelineIcon';
@@ -25,7 +25,7 @@ function CoursesSection({ title, courses }: CoursesSectionProps) {
   return (
     <section id="courses" className={styles.section}>
       <div className={styles.container}>
-        <motion.h2 className={styles.sectionTitle} {...ktsSectionTitle}>
+        <motion.h2 className={styles.sectionTitle} {...sectionTitle}>
           {title}
         </motion.h2>
         <VerticalTimeline lineColor="var(--timeline-line)" className={styles.verticalTimeline}>

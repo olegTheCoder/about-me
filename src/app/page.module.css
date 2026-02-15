@@ -1023,8 +1023,8 @@
 }
 
 /* KTS-стиль: лёгкое постоянное покачивание одной карточки */
-.polaroidCard.ktsSwayIdle {
-  animation: ktsSway 5s ease-in-out infinite alternate;
+.polaroidCard.swayIdle {
+  animation: sway 5s ease-in-out infinite alternate;
 }
 
 .polaroidRot1 {

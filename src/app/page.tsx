@@ -12,14 +12,14 @@ import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import type { IconType } from 'react-icons';
 import {
-  ktsFadeIn,
-  ktsFadeInUp,
-  ktsFooter,
-  ktsSectionTitle,
-  ktsStaggerCard,
-  ktsStaggerCardItem,
-  ktsStaggerContainer,
-  ktsStaggerItem,
+  fadeIn,
+  fadeInUp,
+  footerFadeIn,
+  sectionTitle,
+  staggerCard,
+  staggerCardItem,
+  staggerContainer,
+  staggerItem,
 } from '@/lib/animations';
 import {
   SiChartdotjs,
@@ -347,7 +347,7 @@ export default function HomePage() {
 
         <section id="about" className={styles.section}>
           <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...ktsSectionTitle}>
+            <motion.h2 className={styles.sectionTitle} {...sectionTitle}>
               {t('about.title')}
             </motion.h2>
             <motion.div
@@ -355,7 +355,7 @@ export default function HomePage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
-              variants={ktsStaggerCard}
+              variants={staggerCard}
             >
               {[
                 {
@@ -389,9 +389,9 @@ export default function HomePage() {
               ].map((item) => (
                 <motion.div
                   key={item.src}
-                  className={`${styles.polaroidCard} ${styles[item.rotation]} ${styles[item.position]} ${item.zIndex === 4 ? styles.ktsSwayIdle : ''}`}
+                  className={`${styles.polaroidCard} ${styles[item.rotation]} ${styles[item.position]} ${item.zIndex === 4 ? styles.swayIdle : ''}`}
                   style={{ zIndex: item.zIndex }}
-                  variants={ktsStaggerCardItem}
+                  variants={staggerCardItem}
                 >
                   <div className={styles.polaroidInner}>
                     <Image
@@ -412,7 +412,7 @@ export default function HomePage() {
 
         <section id="skills" className={styles.section}>
           <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...ktsSectionTitle}>
+            <motion.h2 className={styles.sectionTitle} {...sectionTitle}>
               {t('skills.title')}
             </motion.h2>
             <motion.ul
@@ -420,13 +420,13 @@ export default function HomePage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
-              variants={ktsStaggerContainer}
+              variants={staggerContainer}
             >
               {SKILLS.map((skill) => (
                 <motion.li
                   key={skill.name}
                   className={styles.skillItem}
-                  variants={ktsStaggerItem}
+                  variants={staggerItem}
                   whileHover={{ scale: 1.03 }}
                 >
                   <skill.Icon className={styles.skillIcon} aria-hidden />
@@ -466,7 +466,7 @@ export default function HomePage() {
 
         <section id="projects" className={styles.section}>
           <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...ktsSectionTitle}>
+            <motion.h2 className={styles.sectionTitle} {...sectionTitle}>
               {t('projects.title')}
             </motion.h2>
             <motion.ul
@@ -474,7 +474,7 @@ export default function HomePage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
-              variants={ktsStaggerContainer}
+              variants={staggerContainer}
             >
               {[
                 {
@@ -523,7 +523,7 @@ export default function HomePage() {
                   <motion.li
                     key={project.title}
                     className={styles.projectCard}
-                    variants={ktsStaggerItem}
+                    variants={staggerItem}
                     whileHover={{ y: -4 }}
                   >
                     <div className={styles.projectLink}>
@@ -581,7 +581,7 @@ export default function HomePage() {
 
         <section id="contact" className={styles.section}>
           <div className={styles.container}>
-            <motion.div className={styles.contactBlock} {...ktsFadeInUp}>
+            <motion.div className={styles.contactBlock} {...fadeInUp}>
               <h2 className={styles.sectionTitle}>{t('contact.title')}</h2>
               <div className={styles.contactLinks}>
                 <motion.a
@@ -589,7 +589,7 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.contactLink}
-                  {...ktsFadeIn}
+                  {...fadeIn}
                 >
                   Telegram · @olegthecoder
                 </motion.a>
@@ -598,7 +598,7 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.contactLink}
-                  {...ktsFadeIn}
+                  {...fadeIn}
                 >
                   GitHub · olegthecoder
                 </motion.a>
@@ -608,7 +608,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      <motion.footer className={styles.footer} {...ktsFooter}>
+      <motion.footer className={styles.footer} {...footerFadeIn}>
         <div className={styles.container}>
           <p className={styles.footerText}>
             © {new Date().getFullYear()} {t('footer.copyright')}

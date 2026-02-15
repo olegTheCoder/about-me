@@ -130,8 +130,8 @@ video {
   }
 }
 
-/* KTS.tech-подобные анимации (спарсены с kts.tech) */
-@keyframes ktsEntrance {
+/* Ключевые кадры анимаций */
+@keyframes entrance {
   0% {
     opacity: 0;
     transform: translate(100%, -100%) scale(2);
@@ -142,7 +142,7 @@ video {
   }
 }
 
-@keyframes ktsScalePulse {
+@keyframes scalePulse {
   0%,
   100% {
     opacity: 1;
@@ -154,7 +154,7 @@ video {
   }
 }
 
-@keyframes ktsSway {
+@keyframes sway {
   0% {
     transform: rotate(-6deg);
   }
@@ -163,7 +163,7 @@ video {
   }
 }
 
-@keyframes ktsBlink {
+@keyframes blink {
   0%,
   100% {
     opacity: 1;
