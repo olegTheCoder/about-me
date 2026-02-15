@@ -31,13 +31,6 @@ export const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <head>
         <link
           rel="preload"
-          href="/fonts/riviera/Riviera.otf"
-          as="font"
-          type="font/otf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
           href="/fonts/igra-sans/IgraSans.otf"
           as="font"
           type="font/otf"

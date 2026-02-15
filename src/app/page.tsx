@@ -4,11 +4,10 @@ import { useLocale } from '@/components/LocaleProvider';
 import { MatrixText } from '@/components/MatrixText';
 import { Model3D } from '@/components/Model3D';
 import { useTheme } from '@/components/ThemeProvider';
-import { VerticalTimeline, VerticalTimelineElement } from '@/components/Timeline';
-import { TimelineIcon } from '@/components/TimelineIcon';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, Menu, Moon, Sun, X } from 'lucide-react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import type { IconType } from 'react-icons';
 import {
@@ -25,8 +24,37 @@ import {
   SiTypescript,
   SiWebpack,
 } from 'react-icons/si';
-import 'react-vertical-timeline-component/style.min.css';
 import styles from './page.module.css';
+
+const ExperienceSection = dynamic(
+  () => import('@/components/ExperienceSection').then((mod) => mod.ExperienceSection),
+  {
+    ssr: false,
+    loading: () => (
+      <section id="experience" className={styles.section} aria-busy="true">
+        <div className={styles.container}>
+          <div className={styles.sectionTitle} style={{ opacity: 0.6 }} />
+          <div style={{ minHeight: 420 }} />
+        </div>
+      </section>
+    ),
+  },
+);
+
+const CoursesSection = dynamic(
+  () => import('@/components/CoursesSection').then((mod) => mod.CoursesSection),
+  {
+    ssr: false,
+    loading: () => (
+      <section id="courses" className={styles.section} aria-busy="true">
+        <div className={styles.container}>
+          <div className={styles.sectionTitle} style={{ opacity: 0.6 }} />
+          <div style={{ minHeight: 320 }} />
+        </div>
+      </section>
+    ),
+  },
+);
 
 const fadeIn = {
   initial: { opacity: 0, y: 24 },
@@ -66,10 +94,20 @@ export default function HomePage() {
   const { locale, setLocale, t } = useLocale();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [canLoadModel, setCanLoadModel] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    const useIdle = typeof window.requestIdleCallback === 'function';
+    const id = useIdle
+      ? window.requestIdleCallback(() => setCanLoadModel(true), { timeout: 400 })
+      : window.setTimeout(() => setCanLoadModel(true), 200);
+    return () => (useIdle ? window.cancelIdleCallback!(id) : clearTimeout(id));
+  }, [isMounted]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -248,7 +286,9 @@ export default function HomePage() {
               transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className={styles.heroModel}>
-                {isMounted && <Model3D modelPath="/models/model.glb" className={styles.model3D} />}
+                {canLoadModel && (
+                  <Model3D modelPath="/models/model.glb" className={styles.model3D} />
+                )}
               </div>
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
@@ -407,79 +447,32 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="experience" className={styles.section}>
-          <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...fadeIn}>
-              {t('experience.title')}
-            </motion.h2>
-            <VerticalTimeline lineColor="var(--timeline-line)" className={styles.verticalTimeline}>
-              {[
-                {
-                  company: 'VK',
-                  period: t('experience.job1.period'),
-                  desc: t('experience.job1.desc'),
-                  logo: '/logos/vk.png',
-                  url: 'https://www.rustore.ru/',
-                },
-                {
-                  company: 'red_mad_robot',
-                  period: t('experience.job2.period'),
-                  desc: t('experience.job2.desc'),
-                  logo: '/logos/red-mad-robot.png',
-                  url: 'https://redmadrobot.com/',
-                },
-                {
-                  company: t('experience.job3.company'),
-                  period: t('experience.job3.period'),
-                  desc: t('experience.job3.desc'),
-                  logo: '/logos/beeline.png',
-                  url: 'https://www.beeline.ru/',
-                },
-              ].map((job, index) => (
-                <VerticalTimelineElement
-                  key={job.period}
-                  className={styles.timelineElement}
-                  contentStyle={{
-                    background: 'var(--card-bg)',
-                    color: 'var(--text-primary)',
-                    boxShadow: 'var(--card-shadow)',
-                    border: '1px solid var(--border)',
-                    cursor: 'pointer',
-                  }}
-                  date={job.period}
-                  dateClassName={styles.timelineDate}
-                  iconStyle={{
-                    background: '#fff',
-                    border: '2px solid var(--border)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '6px',
-                  }}
-                  icon={<TimelineIcon logo={job.logo} alt={`${job.company} logo`} />}
-                >
-                  <motion.a
-                    href={job.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.timelineLink}
-                    initial={{ opacity: 0, x: -28 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: '-40px' }}
-                    transition={{
-                      delay: index * 0.12,
-                      duration: 0.55,
-                      ease: [0.25, 0.46, 0.45, 0.94],
-                    }}
-                  >
-                    <h3 className={styles.timelineRole}>{job.company}</h3>
-                    <p className={styles.timelineDesc}>{job.desc}</p>
-                  </motion.a>
-                </VerticalTimelineElement>
-              ))}
-            </VerticalTimeline>
-          </div>
-        </section>
+        <ExperienceSection
+          title={t('experience.title')}
+          jobs={[
+            {
+              company: 'VK',
+              period: t('experience.job1.period'),
+              desc: t('experience.job1.desc'),
+              logo: '/logos/vk.png',
+              url: 'https://www.rustore.ru/',
+            },
+            {
+              company: 'red_mad_robot',
+              period: t('experience.job2.period'),
+              desc: t('experience.job2.desc'),
+              logo: '/logos/red-mad-robot.png',
+              url: 'https://redmadrobot.com/',
+            },
+            {
+              company: t('experience.job3.company'),
+              period: t('experience.job3.period'),
+              desc: t('experience.job3.desc'),
+              logo: '/logos/beeline.png',
+              url: 'https://www.beeline.ru/',
+            },
+          ]}
+        />
 
         <section id="projects" className={styles.section}>
           <div className={styles.container}>
@@ -571,61 +564,27 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="courses" className={styles.section}>
-          <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...fadeIn}>
-              {t('courses.title')}
-            </motion.h2>
-            <VerticalTimeline lineColor="var(--timeline-line)" className={styles.verticalTimeline}>
-              {[
-                {
-                  role: t('courses.item1.role'),
-                  company: t('courses.item1.company'),
-                  period: t('courses.item1.period'),
-                  desc: t('courses.item1.desc'),
-                  logo: '/logos/school21.png',
-                  iconBg: '#1e293b',
-                },
-                {
-                  role: t('courses.item2.role'),
-                  company: t('courses.item2.company'),
-                  period: t('courses.item2.period'),
-                  desc: t('courses.item2.desc'),
-                  logo: '/logos/red-mad-robot.png',
-                  iconBg: '#fff',
-                },
-              ].map((course) => (
-                <VerticalTimelineElement
-                  key={course.period}
-                  className={styles.timelineElement}
-                  contentStyle={{
-                    background: 'var(--card-bg)',
-                    color: 'var(--text-primary)',
-                    boxShadow: 'var(--card-shadow)',
-                    border: '1px solid var(--border)',
-                  }}
-                  contentArrowStyle={{ borderRight: '7px solid var(--card-bg)' }}
-                  date={course.period}
-                  dateClassName={styles.timelineDate}
-                  iconStyle={{
-                    background: course.iconBg,
-                    border: '2px solid var(--border)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '6px',
-                  }}
-                  icon={<TimelineIcon logo={course.logo} alt={course.company} />}
-                >
-                  <h3 className={styles.timelineRole}>
-                    {course.role} · {course.company}
-                  </h3>
-                  <p className={styles.timelineDesc}>{course.desc}</p>
-                </VerticalTimelineElement>
-              ))}
-            </VerticalTimeline>
-          </div>
-        </section>
+        <CoursesSection
+          title={t('courses.title')}
+          courses={[
+            {
+              role: t('courses.item1.role'),
+              company: t('courses.item1.company'),
+              period: t('courses.item1.period'),
+              desc: t('courses.item1.desc'),
+              logo: '/logos/school21.png',
+              iconBg: '#1e293b',
+            },
+            {
+              role: t('courses.item2.role'),
+              company: t('courses.item2.company'),
+              period: t('courses.item2.period'),
+              desc: t('courses.item2.desc'),
+              logo: '/logos/red-mad-robot.png',
+              iconBg: '#fff',
+            },
+          ]}
+        />
 
         <section id="contact" className={styles.section}>
           <div className={styles.container}>

@@ -8,7 +8,10 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'source.unsplash.com' },
     ],
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 31536000, // 1 year for immutable assets
+  },
+  experimental: {
+    optimizePackageImports: ['react-icons', 'lucide-react'],
   },
 };
 
