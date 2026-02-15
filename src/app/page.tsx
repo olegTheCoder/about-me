@@ -57,7 +57,7 @@ const SKILLS: { name: string; Icon: IconType }[] = [
   { name: 'Jest', Icon: SiJest },
   { name: 'Playwright', Icon: Code2 },
   { name: 'Webpack', Icon: SiWebpack },
-  { name: 'SCSS / Sass', Icon: SiSass },
+  { name: 'SCSS/SASS', Icon: SiSass },
   { name: 'Git', Icon: SiGit },
 ];
 
@@ -496,34 +496,76 @@ export default function HomePage() {
                 {
                   title: t('projects.item2.title'),
                   desc: t('projects.item2.desc'),
-                  logo: '/logos/beeline.png',
+                  logo: '/logos/vk.png',
                 },
                 {
                   title: t('projects.item3.title'),
                   desc: t('projects.item3.desc'),
+                  logo: '/logos/vk.png',
+                },
+                {
+                  title: t('projects.item4.title'),
+                  desc: t('projects.item4.desc'),
+                  logo: '/logos/vk.png',
+                },
+                {
+                  title: t('projects.item5.title'),
+                  desc: t('projects.item5.desc'),
                   logo: '/logos/beeline.png',
                 },
-              ].map((project, i) => (
-                <motion.li
-                  key={project.title}
-                  className={styles.projectCard}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.45 }}
-                  whileHover={{ y: -4 }}
-                >
-                  <div className={styles.projectLink}>
-                    <span
-                      className={styles.projectLogo}
-                      style={{ backgroundImage: `url(${project.logo})` }}
-                      aria-hidden
-                    />
-                    <span className={styles.projectTitle}>{project.title}</span>
-                    <span className={styles.projectDesc}>{project.desc}</span>
-                  </div>
-                </motion.li>
-              ))}
+                {
+                  title: t('projects.item6.title'),
+                  desc: t('projects.item6.desc'),
+                  logo: '/logos/beeline.png',
+                  logo2: '/logos/alfa-bank.png',
+                },
+                {
+                  title: t('projects.item7.title'),
+                  desc: t('projects.item7.desc'),
+                  logo: '/logos/beeline.png',
+                },
+              ].map((project, i) => {
+                const tasks = project.desc
+                  .split('|')
+                  .map((s) => s.trim())
+                  .filter(Boolean);
+                return (
+                  <motion.li
+                    key={project.title}
+                    className={styles.projectCard}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.45 }}
+                    whileHover={{ y: -4 }}
+                  >
+                    <div className={styles.projectLink}>
+                      <div className={styles.projectLogoWrap}>
+                        {'logo2' in project && project.logo2 && (
+                          <span
+                            className={styles.projectLogoSecond}
+                            style={{ backgroundImage: `url(${project.logo2})` }}
+                            aria-hidden
+                          />
+                        )}
+                        <span
+                          className={styles.projectLogo}
+                          style={{ backgroundImage: `url(${project.logo})` }}
+                          aria-hidden
+                        />
+                      </div>
+                      <span className={styles.projectTitle}>{project.title}</span>
+                      <ul className={styles.projectTasks}>
+                        {tasks.map((task, j) => (
+                          <li key={j} className={styles.projectTask}>
+                            {task}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.li>
+                );
+              })}
             </motion.ul>
           </div>
         </section>

@@ -55,16 +55,32 @@ export const translations = {
     projects: {
       title: 'Проекты',
       item1: {
-        title: 'RuStore',
-        desc: 'Магазин приложений (VK). Разработка с нуля: продукты и инфраструктура, unit и e2e-тесты, code-review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, Jest, Playwright.',
+        title: 'Админка',
+        desc: 'Внутренний инструмент для операторов и модерации контента магазина приложений (RuStore).|Управление карточками приложений, заявками разработчиков, премодерация и обработка жалоб.|Разработка с нуля: сложные формы, таблицы, фильтры, интеграции с бэкендом.|Unit- и e2e-тесты, code-review, участие в проектировании API и процессов.',
       },
       item2: {
-        title: 'Рост и A/B-тесты, Билайн',
-        desc: 'Прототипы и быстрые изменения интерфейсов для Growth Hacking. Welcome-коммуникация (pop-up, квизы) для совместного проекта Билайн и Альфа-Банк. React, Redux, Material-UI, Ant Design.',
+        title: 'Консоль',
+        desc: 'Личный кабинет разработчиков и издателей приложений RuStore.|Публикация приложений, загрузка артефактов, документооборот, статистика и аналитика.|Разработка с нуля, проектирование сценариев и интерфейсов вместе с продуктом.|Тесты, code-review, работа в распределённой команде.',
       },
       item3: {
+        title: 'Витрина',
+        desc: 'Публичная витрина магазина приложений: каталог, карточки приложений, поиск и фильтры.|Высоконагруженные страницы, оптимизация производительности и скорости загрузки.|Разработка с нуля, кросс-функциональная работа с продуктом и дизайном.|Unit и e2e-тесты, доступность и адаптивная вёрстка.',
+      },
+      item4: {
+        title: 'UI-Kit',
+        desc: 'Общая библиотека компонентов и дизайн-система для стримов RuStore (Админка, Консоль, Витрина).|Документация, версионирование, поддержка тем и доступности (a11y).|Разработка и поддержка компонентов, интеграция во все фронтенд-проекты.|Code-review, согласование с дизайном, снижение дублирования кода.',
+      },
+      item5: {
+        title: 'Growth Hacking и A/B-тесты',
+        desc: 'Прототипы и быстрые изменения интерфейсов для Growth Hacking.|Кросс-функциональная работа с маркетингом и продуктом.|A/B-тесты и итерации по результатам.',
+      },
+      item6: {
+        title: 'Конструктор сайтов',
+        desc: 'Совместный проект Билайн и Альфа-Банк (onebusiness.ru): лендинги, интернет-магазины, корпоративные сайты.|Welcome-коммуникация: проектирование и разработка сценариев онбординга для новых пользователей.|Pop-up и квизы: настройка триггеров, контента и логики показа, интеграция с бэкендом и аналитикой.',
+      },
+      item7: {
         title: 'UTM-генератор',
-        desc: 'Соло-проект для внутреннего использования в Билайне: веб-система генерации UTM-меток по правилам с сохранением в БД. Node.js, React.',
+        desc: 'Соло-проект для внутреннего использования в Билайне.|Веб-система генерации UTM-меток по настраиваемым правилам.|Сохранение шаблонов и истории в БД, поиск и фильтры.',
       },
     },
     education: {
@@ -151,16 +167,32 @@ export const translations = {
     projects: {
       title: 'Projects',
       item1: {
-        title: 'RuStore',
-        desc: 'App store (VK). Development from scratch: product and infrastructure, unit and e2e tests, code review. TypeScript, React, Redux, React-Query, Jotai, ChartJS, Jest, Playwright.',
+        title: 'Admin',
+        desc: 'Internal tool for operators and content moderation of the app store (RuStore).|Managing app cards, developer submissions, pre-moderation and complaint handling.|Built from scratch: complex forms, tables, filters, backend integrations.|Unit and e2e tests, code review, contribution to API and process design.',
       },
       item2: {
-        title: 'Growth & A/B tests, Beeline',
-        desc: 'Prototypes and fast UI changes for Growth Hacking. Welcome flows (pop-ups, quizzes) for a joint Beeline and Alfa-Bank project. React, Redux, Material-UI, Ant Design.',
+        title: 'Console',
+        desc: 'Developer and publisher portal for RuStore apps.|App publishing, artifact uploads, document flow, statistics and analytics.|Built from scratch, designing flows and UI together with product.|Testing, code review, working in a distributed team.',
       },
       item3: {
+        title: 'Storefront',
+        desc: 'Public app store front: catalog, app cards, search and filters.|High-traffic pages, performance and load-time optimization.|Built from scratch, cross-functional work with product and design.|Unit and e2e tests, accessibility and responsive layout.',
+      },
+      item4: {
+        title: 'UI-Kit',
+        desc: 'Shared component library and design system for RuStore streams (Admin, Console, Storefront).|Documentation, versioning, theming and accessibility (a11y).|Developing and maintaining components, integration across frontend projects.|Code review, design alignment, reducing code duplication.',
+      },
+      item5: {
+        title: 'Growth & A/B tests',
+        desc: 'Prototypes and rapid UI changes for Growth Hacking.|Cross-functional work with marketing and product.|A/B tests and iterations based on results.',
+      },
+      item6: {
+        title: 'Website builder',
+        desc: 'Joint Beeline and Alfa-Bank project (onebusiness.ru): landing pages, online stores, corporate sites.|Welcome communication: designing and building onboarding flows for new users.|Pop-ups and quizzes: trigger and content configuration, display logic, backend and analytics integration.',
+      },
+      item7: {
         title: 'UTM generator',
-        desc: 'Solo internal tool at Beeline: web app for generating UTM tags by rules with DB storage. Node.js, React.',
+        desc: 'Solo internal tool at Beeline.|Web app for generating UTM tags with configurable rules.|Template and history storage in DB, search and filters.',
       },
     },
     education: {
