@@ -492,6 +492,7 @@ export default function HomePage() {
                   title: t('projects.item1.title'),
                   desc: t('projects.item1.desc'),
                   logo: '/logos/vk.png',
+                  logo2: '/logos/red-mad-robot.png',
                 },
                 {
                   title: t('projects.item2.title'),
