@@ -26,35 +26,29 @@ import {
 } from 'react-icons/si';
 import styles from './page.module.css';
 
-const ExperienceSection = dynamic(
-  () => import('@/components/ExperienceSection').then((mod) => mod.ExperienceSection),
-  {
-    ssr: false,
-    loading: () => (
-      <section id="experience" className={styles.section} aria-busy="true">
-        <div className={styles.container}>
-          <div className={styles.sectionTitle} style={{ opacity: 0.6 }} />
-          <div style={{ minHeight: 420 }} />
-        </div>
-      </section>
-    ),
-  },
-);
+const ExperienceSection = dynamic(() => import('@/components/ExperienceSection'), {
+  ssr: false,
+  loading: () => (
+    <section id="experience" className={styles.section} aria-busy="true">
+      <div className={styles.container}>
+        <div className={styles.sectionTitle} style={{ opacity: 0.6 }} />
+        <div style={{ minHeight: 420 }} />
+      </div>
+    </section>
+  ),
+});
 
-const CoursesSection = dynamic(
-  () => import('@/components/CoursesSection').then((mod) => mod.CoursesSection),
-  {
-    ssr: false,
-    loading: () => (
-      <section id="courses" className={styles.section} aria-busy="true">
-        <div className={styles.container}>
-          <div className={styles.sectionTitle} style={{ opacity: 0.6 }} />
-          <div style={{ minHeight: 320 }} />
-        </div>
-      </section>
-    ),
-  },
-);
+const CoursesSection = dynamic(() => import('@/components/CoursesSection'), {
+  ssr: false,
+  loading: () => (
+    <section id="courses" className={styles.section} aria-busy="true">
+      <div className={styles.container}>
+        <div className={styles.sectionTitle} style={{ opacity: 0.6 }} />
+        <div style={{ minHeight: 320 }} />
+      </div>
+    </section>
+  ),
+});
 
 const fadeIn = {
   initial: { opacity: 0, y: 24 },

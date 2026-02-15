@@ -367,10 +367,13 @@
     padding: 0 0.75rem;
   }
 
-  .polaroidCard {
-    width: 42%;
-    min-width: 120px;
-    max-width: 160px;
+  .aboutPolaroids {
+    gap: 0.75rem;
+    padding: 1.5rem 0;
+  }
+
+  .aboutPolaroids .polaroidCard {
+    max-width: 140px;
   }
 
   .skillItem {
@@ -383,7 +386,7 @@
   }
 
   .footer {
-    padding: 1.5rem 0.75rem;
+    padding: 1.5rem 0;
   }
 }
 
@@ -430,7 +433,7 @@
   align-items: center;
   gap: 1rem;
   flex-shrink: 0;
-  order: 2;
+  order: 1; /* на мобильном сначала модель, затем текст */
 }
 
 .heroLabelWrap {
@@ -443,7 +446,7 @@
   width: 100%;
   max-width: 36rem;
   text-align: center;
-  order: 1;
+  order: 2;
 }
 
 /* Планшет: две колонки, центрированный блок */
@@ -462,6 +465,11 @@
     flex: 1;
     min-width: 0;
     justify-content: center;
+    order: 0; /* DOM-порядок: модель слева */
+  }
+
+  .heroText {
+    order: 0; /* текст справа */
   }
 
   .heroModel {
@@ -498,6 +506,21 @@
 
   .heroCta {
     justify-content: flex-start;
+  }
+}
+
+/* От 767px: имя и фамилия в одну строку */
+@media (min-width: 767px) {
+  .heroTitle span {
+    display: inline;
+  }
+
+  .heroTitle span:first-child {
+    margin-bottom: 0;
+  }
+
+  .heroTitle span:first-child::after {
+    content: '\00a0';
   }
 }
 
@@ -764,55 +787,117 @@
 
 @media (max-width: 767px) {
   .hero {
-    padding: 7rem 1rem 3rem;
+    padding: 6.5rem 1rem 2.5rem;
     min-height: auto;
   }
 
+  .heroTitle {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.25em;
+  }
+
   .heroContent {
-    gap: 1.5rem;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .heroModelBlock {
+    order: 1;
+  }
+
+  .heroText {
+    order: 2;
   }
 
   .heroModel {
-    width: min(300px, 80vw);
-    height: min(300px, 80vw);
-    max-width: 300px;
-    max-height: 300px;
+    width: min(280px, 78vw);
+    height: min(280px, 78vw);
+    max-width: 280px;
+    max-height: 280px;
+  }
+
+  .heroLabelWrap {
+    margin-top: 0.25rem;
   }
 
   .heroTitle {
-    font-size: clamp(2.5rem, 8vw, 4rem);
-    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 7.5vw, 3.25rem);
+    margin-bottom: 1rem;
+    line-height: 1.15;
   }
 
   .heroTagline {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .heroText {
+    max-width: 100%;
+  }
+
+  .heroText .heroTitle,
+  .heroText .heroTagline {
+    text-align: center;
   }
 
   .heroCta {
     flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    gap: 0.75rem;
+  }
+
+  .heroCta a {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    box-sizing: border-box;
   }
 
   .aboutPolaroids {
-    min-height: 340px;
-    padding: 1.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    min-height: auto;
+    padding: 2rem 0;
+    justify-items: center;
+    align-items: start;
   }
 
-  .polaroidPos1 {
-    left: 0;
-    top: 0;
+  .aboutPolaroids .polaroidCard {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100%;
+    max-width: 160px;
+    min-width: 0;
   }
-  .polaroidPos2 {
-    left: 20%;
-    top: 2%;
+
+  .aboutPolaroids .polaroidRot1,
+  .aboutPolaroids .polaroidRot2,
+  .aboutPolaroids .polaroidRot3,
+  .aboutPolaroids .polaroidRot4 {
+    transform: rotate(0deg);
   }
-  .polaroidPos3 {
-    left: 40%;
-    top: 0;
+
+  .aboutPolaroids .polaroidCard:hover {
+    transform: translateY(-4px);
   }
+
+  .polaroidPos1,
+  .polaroidPos2,
+  .polaroidPos3,
   .polaroidPos4 {
-    left: 58%;
-    top: 1%;
+    left: auto;
+    top: auto;
   }
 
   .section {
@@ -952,6 +1037,37 @@
 .polaroidPos4 {
   left: 72%;
   top: 1%;
+}
+
+/* Планшеты и средние экраны (769px–1200px): карточки заполняют пространство без пустот */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .aboutPolaroids {
+    min-height: 440px;
+    padding: 2.5rem 0;
+  }
+
+  .polaroidCard {
+    width: 32%;
+    min-width: 160px;
+    max-width: 280px;
+  }
+
+  .polaroidPos1 {
+    left: 0;
+    top: 2%;
+  }
+  .polaroidPos2 {
+    left: 22%;
+    top: 0;
+  }
+  .polaroidPos3 {
+    left: 44%;
+    top: 3%;
+  }
+  .polaroidPos4 {
+    left: 66%;
+    top: 1%;
+  }
 }
 
 [data-theme='dark'] .polaroidCard {
@@ -1399,6 +1515,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.25rem;
+  align-items: flex-start;
 }
 
 .contactLink {
@@ -1410,6 +1527,8 @@
   transition:
     border-color 0.2s,
     color 0.2s;
+  width: fit-content;
+  display: inline-block;
 }
 
 .contactLink:hover {
@@ -1419,7 +1538,7 @@
 
 /* Footer */
 .footer {
-  padding: 2rem 1.5rem;
+  padding: 2rem 0;
   border-top: 1px solid var(--border);
   background: var(--card-bg);
 }

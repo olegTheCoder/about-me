@@ -13,7 +13,7 @@ const fadeIn = {
   transition: { duration: 0.5 },
 };
 
-export type CourseItem = {
+type CourseItem = {
   role: string;
   company: string;
   period: string;
@@ -27,7 +27,7 @@ type CoursesSectionProps = {
   courses: CourseItem[];
 };
 
-export function CoursesSection({ title, courses }: CoursesSectionProps) {
+function CoursesSection({ title, courses }: CoursesSectionProps) {
   return (
     <section id="courses" className={styles.section}>
       <div className={styles.container}>
@@ -69,3 +69,6 @@ export function CoursesSection({ title, courses }: CoursesSectionProps) {
     </section>
   );
 }
+
+export default CoursesSection;
+export type { CourseItem };

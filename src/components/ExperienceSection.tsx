@@ -13,7 +13,7 @@ const fadeIn = {
   transition: { duration: 0.5 },
 };
 
-export type ExperienceJob = {
+type ExperienceJob = {
   company: string;
   period: string;
   desc: string;
@@ -26,7 +26,7 @@ type ExperienceSectionProps = {
   jobs: ExperienceJob[];
 };
 
-export function ExperienceSection({ title, jobs }: ExperienceSectionProps) {
+function ExperienceSection({ title, jobs }: ExperienceSectionProps) {
   return (
     <section id="experience" className={styles.section}>
       <div className={styles.container}>
@@ -81,3 +81,6 @@ export function ExperienceSection({ title, jobs }: ExperienceSectionProps) {
     </section>
   );
 }
+
+export default ExperienceSection;
+export type { ExperienceJob };
