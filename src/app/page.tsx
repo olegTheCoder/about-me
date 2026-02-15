@@ -7,7 +7,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { VerticalTimeline, VerticalTimelineElement } from '@/components/Timeline';
 import { TimelineIcon } from '@/components/TimelineIcon';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Code2, GraduationCap, Menu, Moon, Sun, X } from 'lucide-react';
+import { Code2, Menu, Moon, Sun, X } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import type { IconType } from 'react-icons';
@@ -446,7 +446,6 @@ export default function HomePage() {
                     border: '1px solid var(--border)',
                     cursor: 'pointer',
                   }}
-                  contentArrowStyle={{ borderRight: '7px solid var(--card-bg)' }}
                   date={job.period}
                   dateClassName={styles.timelineDate}
                   iconStyle={{
@@ -464,11 +463,14 @@ export default function HomePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.timelineLink}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: -28 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: '-40px' }}
-                    transition={{ delay: index * 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    whileHover={{ scale: 1.02 }}
+                    transition={{
+                      delay: index * 0.12,
+                      duration: 0.55,
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                    }}
                   >
                     <h3 className={styles.timelineRole}>{job.company}</h3>
                     <p className={styles.timelineDesc}>{job.desc}</p>
@@ -489,19 +491,16 @@ export default function HomePage() {
                 {
                   title: t('projects.item1.title'),
                   desc: t('projects.item1.desc'),
-                  href: 'https://www.rustore.ru/',
                   logo: '/logos/vk.png',
                 },
                 {
                   title: t('projects.item2.title'),
                   desc: t('projects.item2.desc'),
-                  href: 'https://www.beeline.ru/',
                   logo: '/logos/beeline.png',
                 },
                 {
                   title: t('projects.item3.title'),
                   desc: t('projects.item3.desc'),
-                  href: '#',
                   logo: '/logos/beeline.png',
                 },
               ].map((project, i) => (
@@ -514,17 +513,15 @@ export default function HomePage() {
                   transition={{ delay: i * 0.1, duration: 0.45 }}
                   whileHover={{ y: -4 }}
                 >
-                  <a href={project.href} className={styles.projectLink}>
+                  <div className={styles.projectLink}>
                     <span
                       className={styles.projectLogo}
-                      style={{
-                        backgroundImage: `url(${project.logo})`,
-                      }}
+                      style={{ backgroundImage: `url(${project.logo})` }}
                       aria-hidden
                     />
                     <span className={styles.projectTitle}>{project.title}</span>
                     <span className={styles.projectDesc}>{project.desc}</span>
-                  </a>
+                  </div>
                 </motion.li>
               ))}
             </motion.ul>
@@ -543,6 +540,16 @@ export default function HomePage() {
                   company: t('courses.item1.company'),
                   period: t('courses.item1.period'),
                   desc: t('courses.item1.desc'),
+                  logo: '/logos/school21.png',
+                  iconBg: '#1e293b',
+                },
+                {
+                  role: t('courses.item2.role'),
+                  company: t('courses.item2.company'),
+                  period: t('courses.item2.period'),
+                  desc: t('courses.item2.desc'),
+                  logo: '/logos/red-mad-robot.png',
+                  iconBg: '#fff',
                 },
               ].map((course) => (
                 <VerticalTimelineElement
@@ -558,10 +565,14 @@ export default function HomePage() {
                   date={course.period}
                   dateClassName={styles.timelineDate}
                   iconStyle={{
-                    background: 'var(--accent)',
-                    color: '#fff',
+                    background: course.iconBg,
+                    border: '2px solid var(--border)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '6px',
                   }}
-                  icon={<GraduationCap size={20} />}
+                  icon={<TimelineIcon logo={course.logo} alt={course.company} />}
                 >
                   <h3 className={styles.timelineRole}>
                     {course.role} · {course.company}
