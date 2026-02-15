@@ -20,6 +20,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
   transition:
     background-color 0.35s ease,
     color 0.35s ease;
@@ -29,6 +30,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
   font-family:
     'Igra Sans',
     var(--font-sans),
@@ -125,5 +127,48 @@ video {
       0 0 1px rgba(0, 0, 0, 0.25),
       0 0 2px rgba(0, 0, 0, 0.15);
     opacity: 0.98;
+  }
+}
+
+/* KTS.tech-подобные анимации (спарсены с kts.tech) */
+@keyframes ktsEntrance {
+  0% {
+    opacity: 0;
+    transform: translate(100%, -100%) scale(2);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes ktsScalePulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes ktsSway {
+  0% {
+    transform: rotate(-6deg);
+  }
+  100% {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes ktsBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
   }
 }

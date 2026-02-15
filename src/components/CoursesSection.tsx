@@ -1,17 +1,11 @@
 'use client';
 
+import { ktsSectionTitle } from '@/lib/animations';
 import { motion } from 'framer-motion';
 import { VerticalTimeline, VerticalTimelineElement } from '@/components/Timeline';
 import { TimelineIcon } from '@/components/TimelineIcon';
 import styles from '@/app/page.module.css';
 import 'react-vertical-timeline-component/style.min.css';
-
-const fadeIn = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-48px' },
-  transition: { duration: 0.5 },
-};
 
 type CourseItem = {
   role: string;
@@ -31,7 +25,7 @@ function CoursesSection({ title, courses }: CoursesSectionProps) {
   return (
     <section id="courses" className={styles.section}>
       <div className={styles.container}>
-        <motion.h2 className={styles.sectionTitle} {...fadeIn}>
+        <motion.h2 className={styles.sectionTitle} {...ktsSectionTitle}>
           {title}
         </motion.h2>
         <VerticalTimeline lineColor="var(--timeline-line)" className={styles.verticalTimeline}>

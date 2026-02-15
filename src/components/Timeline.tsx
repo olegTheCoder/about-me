@@ -2,14 +2,20 @@
 
 import dynamic from 'next/dynamic';
 
-// Динамический импорт для избежания SSR проблем
+// Динамический импорт: возвращаем объект с default, чтобы Next/dynamic корректно разрешал модуль
 const VerticalTimeline = dynamic(
-  () => import('react-vertical-timeline-component').then((mod) => mod.VerticalTimeline),
+  () =>
+    import('react-vertical-timeline-component').then((mod) => ({
+      default: mod.VerticalTimeline,
+    })),
   { ssr: false },
 );
 
 const VerticalTimelineElement = dynamic(
-  () => import('react-vertical-timeline-component').then((mod) => mod.VerticalTimelineElement),
+  () =>
+    import('react-vertical-timeline-component').then((mod) => ({
+      default: mod.VerticalTimelineElement,
+    })),
   { ssr: false },
 );
 

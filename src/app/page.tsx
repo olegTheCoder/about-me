@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale } from '@/components/LocaleProvider';
+import { HeroParallax } from '@/components/HeroParallax';
 import { MatrixText } from '@/components/MatrixText';
 import { Model3D } from '@/components/Model3D';
 import { useTheme } from '@/components/ThemeProvider';
@@ -8,8 +9,18 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, Menu, Moon, Sun, X } from 'lucide-react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { IconType } from 'react-icons';
+import {
+  ktsFadeIn,
+  ktsFadeInUp,
+  ktsFooter,
+  ktsSectionTitle,
+  ktsStaggerCard,
+  ktsStaggerCardItem,
+  ktsStaggerContainer,
+  ktsStaggerItem,
+} from '@/lib/animations';
 import {
   SiChartdotjs,
   SiCss3,
@@ -50,20 +61,6 @@ const CoursesSection = dynamic(() => import('@/components/CoursesSection'), {
   ),
 });
 
-const fadeIn = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-48px' },
-  transition: { duration: 0.5 },
-};
-
-const stagger = {
-  initial: {},
-  whileInView: {},
-  viewport: { once: true, margin: '-32px' },
-  transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-};
-
 const SKILLS: { name: string; Icon: IconType }[] = [
   { name: 'TypeScript', Icon: SiTypescript },
   { name: 'JavaScript', Icon: SiJavascript },
@@ -89,6 +86,7 @@ export default function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [canLoadModel, setCanLoadModel] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -265,89 +263,91 @@ export default function HomePage() {
       </header>
 
       <main className={styles.mainContent}>
-        <section id="hero" className={styles.hero}>
-          <motion.div
-            className={styles.heroContent}
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {/* Первая колонка: 3D-модель, под ней надпись «Frontend-разработчик» */}
+        <section id="hero" ref={heroRef} className={styles.hero}>
+          <HeroParallax sectionRef={heroRef}>
             <motion.div
-              className={styles.heroModelBlock}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className={styles.heroContent}
+              initial={{ opacity: 0, x: '24%', y: '-20%', scale: 1.15 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              transition={{ duration: 0.75, ease: [0.19, 1, 0.22, 1] }}
             >
-              <div className={styles.heroModel}>
-                {canLoadModel && (
-                  <Model3D modelPath="/models/model.glb" className={styles.model3D} />
-                )}
+              {/* Первая колонка: 3D-модель (KTS-стиль входа) */}
+              <motion.div
+                className={styles.heroModelBlock}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.15, duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+              >
+                <div className={styles.heroModel}>
+                  {canLoadModel && (
+                    <Model3D modelPath="/models/model.glb" className={styles.model3D} />
+                  )}
+                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                  className={styles.heroLabelWrap}
+                >
+                  <MatrixText text={t('hero.label')} className={styles.heroLabel} />
+                </motion.div>
+              </motion.div>
+              <div className={styles.heroText}>
+                <h1 className={styles.heroTitle}>
+                  <motion.span
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.35, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {t('nameFirst')}
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {t('nameLast')}
+                  </motion.span>
+                </h1>
+                <motion.p
+                  className={styles.heroTagline}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                >
+                  {t('hero.tagline')}
+                </motion.p>
+                <motion.div
+                  className={styles.heroCta}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.75, duration: 0.5 }}
+                >
+                  <motion.a
+                    href="#contact"
+                    className={styles.ctaPrimary}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {t('hero.ctaContact')}
+                  </motion.a>
+                  <motion.a
+                    href="#projects"
+                    className={styles.ctaSecondary}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {t('hero.ctaProjects')}
+                  </motion.a>
+                </motion.div>
               </div>
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className={styles.heroLabelWrap}
-              >
-                <MatrixText text={t('hero.label')} className={styles.heroLabel} />
-              </motion.div>
             </motion.div>
-            <div className={styles.heroText}>
-              <h1 className={styles.heroTitle}>
-                <motion.span
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {t('nameFirst')}
-                </motion.span>
-                <motion.span
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {t('nameLast')}
-                </motion.span>
-              </h1>
-              <motion.p
-                className={styles.heroTagline}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-              >
-                {t('hero.tagline')}
-              </motion.p>
-              <motion.div
-                className={styles.heroCta}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.75, duration: 0.5 }}
-              >
-                <motion.a
-                  href="#contact"
-                  className={styles.ctaPrimary}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {t('hero.ctaContact')}
-                </motion.a>
-                <motion.a
-                  href="#projects"
-                  className={styles.ctaSecondary}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {t('hero.ctaProjects')}
-                </motion.a>
-              </motion.div>
-            </div>
-          </motion.div>
+          </HeroParallax>
         </section>
 
         <section id="about" className={styles.section}>
           <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...fadeIn}>
+            <motion.h2 className={styles.sectionTitle} {...ktsSectionTitle}>
               {t('about.title')}
             </motion.h2>
             <motion.div
@@ -355,10 +355,7 @@ export default function HomePage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
-              variants={{
-                visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-                hidden: {},
-              }}
+              variants={ktsStaggerCard}
             >
               {[
                 {
@@ -392,13 +389,9 @@ export default function HomePage() {
               ].map((item) => (
                 <motion.div
                   key={item.src}
-                  className={`${styles.polaroidCard} ${styles[item.rotation]} ${styles[item.position]}`}
+                  className={`${styles.polaroidCard} ${styles[item.rotation]} ${styles[item.position]} ${item.zIndex === 4 ? styles.ktsSwayIdle : ''}`}
                   style={{ zIndex: item.zIndex }}
-                  variants={{
-                    hidden: { opacity: 0, y: 28 },
-                    visible: { opacity: 1, y: 0 },
-                  }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  variants={ktsStaggerCardItem}
                 >
                   <div className={styles.polaroidInner}>
                     <Image
@@ -419,18 +412,21 @@ export default function HomePage() {
 
         <section id="skills" className={styles.section}>
           <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...fadeIn}>
+            <motion.h2 className={styles.sectionTitle} {...ktsSectionTitle}>
               {t('skills.title')}
             </motion.h2>
-            <motion.ul className={styles.skillsList} {...stagger}>
-              {SKILLS.map((skill, i) => (
+            <motion.ul
+              className={styles.skillsList}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              variants={ktsStaggerContainer}
+            >
+              {SKILLS.map((skill) => (
                 <motion.li
                   key={skill.name}
                   className={styles.skillItem}
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.04, duration: 0.4 }}
+                  variants={ktsStaggerItem}
                   whileHover={{ scale: 1.03 }}
                 >
                   <skill.Icon className={styles.skillIcon} aria-hidden />
@@ -470,10 +466,16 @@ export default function HomePage() {
 
         <section id="projects" className={styles.section}>
           <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...fadeIn}>
+            <motion.h2 className={styles.sectionTitle} {...ktsSectionTitle}>
               {t('projects.title')}
             </motion.h2>
-            <motion.ul className={styles.projectsGrid} {...stagger}>
+            <motion.ul
+              className={styles.projectsGrid}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              variants={ktsStaggerContainer}
+            >
               {[
                 {
                   title: t('projects.item1.title'),
@@ -512,7 +514,7 @@ export default function HomePage() {
                   desc: t('projects.item7.desc'),
                   logo: '/logos/beeline.png',
                 },
-              ].map((project, i) => {
+              ].map((project) => {
                 const tasks = project.desc
                   .split('|')
                   .map((s) => s.trim())
@@ -521,10 +523,7 @@ export default function HomePage() {
                   <motion.li
                     key={project.title}
                     className={styles.projectCard}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.45 }}
+                    variants={ktsStaggerItem}
                     whileHover={{ y: -4 }}
                   >
                     <div className={styles.projectLink}>
@@ -582,7 +581,7 @@ export default function HomePage() {
 
         <section id="contact" className={styles.section}>
           <div className={styles.container}>
-            <motion.div className={styles.contactBlock} {...fadeIn}>
+            <motion.div className={styles.contactBlock} {...ktsFadeInUp}>
               <h2 className={styles.sectionTitle}>{t('contact.title')}</h2>
               <div className={styles.contactLinks}>
                 <motion.a
@@ -590,10 +589,7 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.contactLink}
-                  initial={{ opacity: 0, x: -8 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.18 }}
+                  {...ktsFadeIn}
                 >
                   Telegram · @olegthecoder
                 </motion.a>
@@ -602,10 +598,7 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.contactLink}
-                  initial={{ opacity: 0, x: -8 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.18 }}
+                  {...ktsFadeIn}
                 >
                   GitHub · olegthecoder
                 </motion.a>
@@ -615,12 +608,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      <motion.footer
-        className={styles.footer}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
+      <motion.footer className={styles.footer} {...ktsFooter}>
         <div className={styles.container}>
           <p className={styles.footerText}>
             © {new Date().getFullYear()} {t('footer.copyright')}
