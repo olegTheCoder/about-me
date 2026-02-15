@@ -971,66 +971,6 @@
   background: #e8e8e8;
 }
 
-/* Ненавязчивые фоновые картинки, скользят за курсором */
-.cursorFloatLayer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.cursorFloatItem {
-  position: absolute;
-  width: fit-content;
-  will-change: transform;
-  transition: transform 0.2s ease-out;
-}
-
-.cursorFloatItem .cursorFloatImg,
-.cursorFloatItem img {
-  width: auto !important;
-  height: auto !important;
-  max-width: 140px !important;
-  max-height: 95px !important;
-  object-fit: cover;
-  border-radius: 12px;
-  opacity: 0.16;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-@media (max-width: 768px) {
-  .cursorFloatItem .cursorFloatImg,
-  .cursorFloatItem img {
-    max-width: 100px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .cursorFloatItem .cursorFloatImg,
-  .cursorFloatItem img {
-    max-width: 80px !important;
-  }
-}
-
-[data-theme='dark'] .cursorFloatItem .cursorFloatImg,
-[data-theme='dark'] .cursorFloatItem img {
-  opacity: 0.12;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
-}
-
-.visuallyHidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .aboutLead {
   font-size: 1.1rem;
   line-height: 1.7;

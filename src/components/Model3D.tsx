@@ -107,7 +107,7 @@ export function Model3D({ modelPath, className }: Model3DProps) {
 
     // Дополнительная проверка через 2 секунды
     const checkErrorTimeout = setTimeout(() => {
-      const mv = modelViewer as any;
+      const mv = modelViewer as HTMLElement & { loaded?: boolean; src?: string };
       if (mv && !mv.loaded && mv.src === modelPath) {
         // Модель не загрузилась, проверяем еще раз
         fetch(modelPath, { method: 'HEAD' })
