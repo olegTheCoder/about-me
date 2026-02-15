@@ -24,6 +24,9 @@ pnpm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 
+# Cursor MCP (локальные настройки)
+.cursor/mcp.json
+
 # Coverage
 coverage/
 
