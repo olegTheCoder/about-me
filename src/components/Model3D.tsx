@@ -12,6 +12,7 @@ interface Model3DProps {
 interface ModelViewerAttributes extends React.HTMLAttributes<HTMLElement> {
   src?: string;
   alt?: string;
+  poster?: string;
   'auto-rotate'?: boolean;
   'auto-rotate-delay'?: number;
   'rotation-per-second'?: string;
@@ -150,7 +151,10 @@ export function Model3D({ modelPath, className }: Model3DProps) {
   }
 
   return (
-    <div className={className} style={{ width: '100%', height: '100%' }}>
+    <div
+      className={className}
+      style={{ width: '100%', height: '100%', overflow: 'hidden', background: 'transparent' }}
+    >
       <model-viewer
         ref={modelViewerRef}
         src={modelPath}
@@ -161,6 +165,7 @@ export function Model3D({ modelPath, className }: Model3DProps) {
         camera-controls
         interaction-policy="allow-when-focused"
         interaction-prompt="none"
+        poster=""
         style={{
           width: '100%',
           height: '100%',

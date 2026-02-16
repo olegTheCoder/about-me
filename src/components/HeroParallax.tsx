@@ -140,16 +140,16 @@ export function HeroParallax({ sectionRef, children }: Props) {
     offset: ['start start', 'end start'],
   });
 
-  /* Фон: сильное смещение от мыши (60–100 px) — хорошо заметно */
-  const layer1Y = useTransform(mouseY, [-0.5, 0.5], [-50, 50]);
-  const layer2Y = useTransform(mouseY, [-0.5, 0.5], [40, -40]);
-  const layer3Y = useTransform(mouseY, [-0.5, 0.5], [-60, 60]);
-  const layer5Y = useTransform(mouseY, [-0.5, 0.5], [-55, 55]);
-  const layer6Y = useTransform(mouseY, [-0.5, 0.5], [45, -45]);
+  /* Фон: увеличенный диапазон параллакса от мыши */
+  const layer1Y = useTransform(mouseY, [-0.5, 0.5], [-120, 120]);
+  const layer2Y = useTransform(mouseY, [-0.5, 0.5], [100, -100]);
+  const layer3Y = useTransform(mouseY, [-0.5, 0.5], [-140, 140]);
+  const layer5Y = useTransform(mouseY, [-0.5, 0.5], [-110, 110]);
+  const layer6Y = useTransform(mouseY, [-0.5, 0.5], [90, -90]);
 
   /* Контент: лёгкое смещение в обратную сторону — ощущение глубины */
-  const contentX = useTransform(mouseX, [-0.5, 0.5], [12, -12]);
-  const contentY = useTransform(mouseY, [-0.5, 0.5], [8, -8]);
+  const contentX = useTransform(mouseX, [-0.5, 0.5], [24, -24]);
+  const contentY = useTransform(mouseY, [-0.5, 0.5], [18, -18]);
 
   const scrollLayer1Y = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const scrollLayer2Y = useTransform(scrollYProgress, [0, 1], [0, 80]);
@@ -158,17 +158,49 @@ export function HeroParallax({ sectionRef, children }: Props) {
   const scrollLayer6Y = useTransform(scrollYProgress, [0, 1], [0, 70]);
   const opacityBg = useTransform(scrollYProgress, [0.15, 0.5], [1, 0.3]);
 
-  const x1 = useTransform(mouseX, [-0.5, 0.5], [-70, 70]);
-  const x2 = useTransform(mouseX, [-0.5, 0.5], [90, -90]);
-  const x3 = useTransform(mouseX, [-0.5, 0.5], [-50, 50]);
-  const x5 = useTransform(mouseX, [-0.5, 0.5], [-60, 60]);
-  const x6 = useTransform(mouseX, [-0.5, 0.5], [80, -80]);
+  const x1 = useTransform(mouseX, [-0.5, 0.5], [-160, 160]);
+  const x2 = useTransform(mouseX, [-0.5, 0.5], [180, -180]);
+  const x3 = useTransform(mouseX, [-0.5, 0.5], [-120, 120]);
+  const x5 = useTransform(mouseX, [-0.5, 0.5], [-140, 140]);
+  const x6 = useTransform(mouseX, [-0.5, 0.5], [170, -170]);
 
   const y1 = useTransform([layer1Y, scrollLayer1Y], ([my, sy]) => (my as number) + (sy as number));
   const y2 = useTransform([layer2Y, scrollLayer2Y], ([my, sy]) => (my as number) + (sy as number));
   const y3 = useTransform([layer3Y, scrollLayer3Y], ([my, sy]) => (my as number) + (sy as number));
   const y5 = useTransform([layer5Y, scrollLayer5Y], ([my, sy]) => (my as number) + (sy as number));
   const y6 = useTransform([layer6Y, scrollLayer6Y], ([my, sy]) => (my as number) + (sy as number));
+
+  /* Цвет пятен в зависимости от положения мыши (hue-rotate + saturate), blur оставляем */
+  const colorFilter1 = useTransform([mouseX, mouseY], ([mx, my]) => {
+    const hue = (mx as number) * 80 + (my as number) * 60;
+    const sat = 1 + (mx as number) * 0.4 + (my as number) * 0.3;
+    return `blur(40px) hue-rotate(${hue}deg) saturate(${Math.max(0.6, Math.min(1.6, sat))})`;
+  });
+  const colorFilter2 = useTransform([mouseX, mouseY], ([mx, my]) => {
+    const hue = (mx as number) * -60 + (my as number) * 70;
+    const sat = 1.1 + (mx as number) * 0.35 + (my as number) * -0.25;
+    return `blur(40px) hue-rotate(${hue}deg) saturate(${Math.max(0.6, Math.min(1.6, sat))})`;
+  });
+  const colorFilter3 = useTransform([mouseX, mouseY], ([mx, my]) => {
+    const hue = (mx as number) * 70 + (my as number) * -50;
+    const sat = 1 + (mx as number) * -0.3 + (my as number) * 0.4;
+    return `blur(40px) hue-rotate(${hue}deg) saturate(${Math.max(0.6, Math.min(1.6, sat))})`;
+  });
+  const colorFilter4 = useTransform([mouseX, mouseY], ([mx, my]) => {
+    const hue = (mx as number) * -90 + (my as number) * -40;
+    const sat = 1.2 + (mx as number) * 0.3 + (my as number) * 0.2;
+    return `blur(40px) hue-rotate(${hue}deg) saturate(${Math.max(0.6, Math.min(1.7, sat))})`;
+  });
+  const colorFilter5 = useTransform([mouseX, mouseY], ([mx, my]) => {
+    const hue = (mx as number) * 50 + (my as number) * 80;
+    const sat = 1 + (mx as number) * 0.25 + (my as number) * 0.35;
+    return `blur(40px) hue-rotate(${hue}deg) saturate(${Math.max(0.6, Math.min(1.6, sat))})`;
+  });
+  const colorFilter6 = useTransform([mouseX, mouseY], ([mx, my]) => {
+    const hue = (mx as number) * -70 + (my as number) * 55;
+    const sat = 1.05 + (mx as number) * 0.4 + (my as number) * -0.2;
+    return `blur(40px) hue-rotate(${hue}deg) saturate(${Math.max(0.6, Math.min(1.6, sat))})`;
+  });
 
   /* Комбинированная opacity для layer1 и layer2 с эффектом деления */
   const layer1Opacity = useMotionValue(1);
@@ -574,6 +606,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
             x: x1,
             y: y1,
             opacity: finalLayer1Opacity,
+            filter: colorFilter1,
             scaleX: layer1DeformTarget?.scaleX ?? layer1Deform.scaleX,
             scaleY: layer1DeformTarget?.scaleY ?? layer1Deform.scaleY,
             rotate: layer1DeformTarget?.rotate ?? layer1Deform.rotate,
@@ -623,6 +656,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
             x: x2,
             y: y2,
             opacity: finalLayer2Opacity,
+            filter: colorFilter2,
             scaleX: layer2DeformTarget?.scaleX ?? layer2Deform.scaleX,
             scaleY: layer2DeformTarget?.scaleY ?? layer2Deform.scaleY,
             rotate: layer2DeformTarget?.rotate ?? layer2Deform.rotate,
@@ -671,6 +705,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
           style={{
             x: x3,
             y: y3,
+            filter: colorFilter3,
             scaleX: layer3DeformTarget?.scaleX ?? layer3Deform.scaleX,
             scaleY: layer3DeformTarget?.scaleY ?? layer3Deform.scaleY,
             rotate: layer3DeformTarget?.rotate ?? layer3Deform.rotate,
@@ -718,6 +753,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
         <motion.div
           className={styles.layer4}
           style={{
+            filter: colorFilter4,
             scaleX: layer4DeformTarget?.scaleX ?? layer4Deform.scaleX,
             scaleY: layer4DeformTarget?.scaleY ?? layer4Deform.scaleY,
             rotate: layer4DeformTarget?.rotate ?? layer4Deform.rotate,
@@ -767,6 +803,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
           style={{
             x: x5,
             y: y5,
+            filter: colorFilter5,
             scaleX: layer5DeformTarget?.scaleX ?? layer5Deform.scaleX,
             scaleY: layer5DeformTarget?.scaleY ?? layer5Deform.scaleY,
             rotate: layer5DeformTarget?.rotate ?? layer5Deform.rotate,
@@ -816,6 +853,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
           style={{
             x: x6,
             y: y6,
+            filter: colorFilter6,
             scaleX: layer6DeformTarget?.scaleX ?? layer6Deform.scaleX,
             scaleY: layer6DeformTarget?.scaleY ?? layer6Deform.scaleY,
             rotate: layer6DeformTarget?.rotate ?? layer6Deform.rotate,

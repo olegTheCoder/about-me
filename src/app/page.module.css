@@ -617,12 +617,27 @@
   max-width: 400px;
   max-height: 400px;
   position: relative;
+  overflow: hidden;
+  background: transparent;
 }
 
 .model3D {
   width: 100%;
   height: 100%;
   cursor: grab;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* Убираем тёмную полосу/постер над моделью при загрузке */
+.model3D model-viewer {
+  --poster-color: transparent;
+  --progress-bar-color: transparent;
+  background: transparent;
+}
+
+.model3D::part(poster) {
+  background: transparent;
 }
 
 .model3D:active {

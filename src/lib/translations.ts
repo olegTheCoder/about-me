@@ -107,7 +107,7 @@ export const translations = {
         desc: 'Практика для опытных разработчиков.',
       },
     },
-    contact: { title: 'Контакты' },
+    contact: { title: 'Контакты', email: 'Email' },
     footer: { copyright: 'Олег Грачев' },
   },
   en: {
@@ -219,7 +219,7 @@ export const translations = {
         desc: 'Practice program for experienced developers.',
       },
     },
-    contact: { title: 'Contact' },
+    contact: { title: 'Contact', email: 'Email' },
     footer: { copyright: 'OLEG GRACHEV' },
   },
 } as const;

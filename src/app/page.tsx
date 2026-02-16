@@ -585,6 +585,13 @@ export default function HomePage() {
               <h2 className={styles.sectionTitle}>{t('contact.title')}</h2>
               <div className={styles.contactLinks}>
                 <motion.a
+                  href="mailto:olegthecoder89@gmail.com"
+                  className={styles.contactLink}
+                  {...fadeIn}
+                >
+                  {t('contact.email')} · olegthecoder89@gmail.com
+                </motion.a>
+                <motion.a
                   href="https://t.me/olegthecoder"
                   target="_blank"
                   rel="noopener noreferrer"
