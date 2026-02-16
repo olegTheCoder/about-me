@@ -1,31 +1,36 @@
-.wrap {
-  position: absolute;
-  inset: 0;
-  bottom: -20%;
-  z-index: 0;
-  pointer-events: none;
-  overflow: visible;
-}
-
 .contentWrap {
   position: relative;
   z-index: 1;
 }
 
+.layerWrapper {
+  position: absolute;
+  padding: 200px;
+  margin: -200px;
+  cursor: default;
+  pointer-events: auto;
+  z-index: 0;
+}
+
 .layer1,
 .layer2,
-.layer3 {
-  position: absolute;
+.layer3,
+.layer4,
+.layer5,
+.layer6 {
+  position: relative;
   border-radius: 50%;
   filter: blur(40px);
   will-change: transform, opacity;
+  pointer-events: none;
+  transform-origin: center center;
 }
 
 .layer1 {
-  width: min(90vw, 720px);
-  height: min(90vw, 720px);
-  left: -18%;
-  top: -8%;
+  width: min(120vw, 960px);
+  height: min(120vw, 960px);
+  margin-left: min(-60vw, -480px);
+  margin-top: min(-60vw, -480px);
   background: radial-gradient(
     circle,
     rgba(37, 99, 235, 0.65) 0%,
@@ -33,13 +38,21 @@
     rgba(99, 102, 241, 0.12) 55%,
     transparent 72%
   );
+  transition:
+    filter 0.2s,
+    transform 0.2s;
+}
+
+.layer1:hover {
+  filter: blur(35px) brightness(1.15);
+  transform: scale(1.1);
 }
 
 .layer2 {
-  width: min(65vw, 500px);
-  height: min(65vw, 500px);
-  right: -12%;
-  top: 20%;
+  width: min(86.67vw, 666px);
+  height: min(86.67vw, 666px);
+  margin-left: min(-43.33vw, -333px);
+  margin-top: min(-43.33vw, -333px);
   background: radial-gradient(
     circle,
     rgba(99, 102, 241, 0.6) 0%,
@@ -47,19 +60,55 @@
     rgba(37, 99, 235, 0.15) 55%,
     transparent 70%
   );
+  transition:
+    filter 0.2s,
+    transform 0.2s;
+}
+
+.layer2:hover {
+  filter: blur(35px) brightness(1.15);
+  transform: scale(1.1);
 }
 
 .layer3 {
-  width: min(38vw, 260px);
-  height: min(38vw, 260px);
-  left: 22%;
-  bottom: 28%;
+  width: min(50.67vw, 346px);
+  height: min(50.67vw, 346px);
+  margin-left: min(-25.33vw, -173px);
+  margin-top: min(-25.33vw, -173px);
   background: radial-gradient(
     circle,
     rgba(147, 197, 253, 0.5) 0%,
     rgba(96, 165, 250, 0.22) 45%,
     transparent 70%
   );
+  transition:
+    filter 0.2s,
+    transform 0.2s;
+}
+
+.layer3:hover {
+  filter: blur(35px) brightness(1.15);
+  transform: scale(1.1);
+}
+
+.layer4 {
+  width: min(73.33vw, 560px);
+  height: min(73.33vw, 560px);
+  left: 50%;
+  top: 50%;
+  margin-left: min(-36.67vw, -280px);
+  margin-top: min(-36.67vw, -280px);
+  cursor: default;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    circle,
+    rgba(236, 72, 153, 0.7) 0%,
+    rgba(251, 113, 133, 0.45) 35%,
+    rgba(249, 168, 212, 0.25) 50%,
+    transparent 68%
+  );
+  animation: layer4Pulse 3s ease-in-out infinite;
 }
 
 [data-theme='dark'] .layer1 {
@@ -90,4 +139,96 @@
     rgba(129, 140, 248, 0.12) 58%,
     transparent 72%
   );
+}
+
+[data-theme='dark'] .layer4 {
+  background: radial-gradient(
+    circle,
+    rgba(251, 113, 133, 0.75) 0%,
+    rgba(236, 72, 153, 0.5) 35%,
+    rgba(219, 39, 119, 0.3) 50%,
+    transparent 68%
+  );
+}
+
+.layer4:hover {
+  filter: blur(35px) brightness(1.25) saturate(1.2);
+  transform: scale(1.15);
+  animation: none;
+}
+
+.layer5 {
+  width: min(66.67vw, 506px);
+  height: min(66.67vw, 506px);
+  margin-left: min(-33.33vw, -253px);
+  margin-top: min(-33.33vw, -253px);
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.55) 0%,
+    rgba(96, 165, 250, 0.3) 40%,
+    rgba(147, 197, 253, 0.15) 55%,
+    transparent 70%
+  );
+  transition:
+    filter 0.2s,
+    transform 0.2s;
+}
+
+.layer5:hover {
+  filter: blur(35px) brightness(1.15);
+  transform: scale(1.1);
+}
+
+.layer6 {
+  width: min(60vw, 453px);
+  height: min(60vw, 453px);
+  margin-left: min(-30vw, -226px);
+  margin-top: min(-30vw, -226px);
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.58) 0%,
+    rgba(167, 139, 250, 0.32) 38%,
+    rgba(196, 181, 253, 0.16) 54%,
+    transparent 69%
+  );
+  transition:
+    filter 0.2s,
+    transform 0.2s;
+}
+
+.layer6:hover {
+  filter: blur(35px) brightness(1.15);
+  transform: scale(1.1);
+}
+
+[data-theme='dark'] .layer5 {
+  background: radial-gradient(
+    circle,
+    rgba(96, 165, 250, 0.68) 0%,
+    rgba(129, 140, 248, 0.38) 40%,
+    rgba(147, 197, 253, 0.18) 55%,
+    transparent 72%
+  );
+}
+
+[data-theme='dark'] .layer6 {
+  background: radial-gradient(
+    circle,
+    rgba(167, 139, 250, 0.7) 0%,
+    rgba(196, 181, 253, 0.4) 38%,
+    rgba(221, 214, 254, 0.2) 54%,
+    transparent 71%
+  );
+}
+
+@keyframes layer4Pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
 }
