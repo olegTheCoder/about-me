@@ -19,8 +19,11 @@
 }
 
 html {
+  margin: 0;
+  padding: 0;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
   transition:
     background-color 0.35s ease,
     color 0.35s ease;

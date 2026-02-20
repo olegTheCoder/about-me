@@ -17,23 +17,35 @@ function randomInRange(min: number, max: number) {
 export function HeroParallax({ sectionRef, children }: Props) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  /* Начальные позиции недалеко от центра */
-  const [layer1Position, setLayer1Position] = useState({ left: 35, top: 40 });
+  /* Начальные позиции: разные углы и части секции */
+  const [layer1Position, setLayer1Position] = useState({
+    left: 15,
+    top: 20,
+  }); /* верхний левый угол */
   const [layer1Target, setLayer1Target] = useState<{ left: number; top: number } | null>(null);
   const [isLayer1Flying, setIsLayer1Flying] = useState(false);
-  const [layer2Position, setLayer2Position] = useState({ left: 65, top: 35 });
+  const [layer2Position, setLayer2Position] = useState({
+    left: 85,
+    top: 15,
+  }); /* верхний правый угол */
   const [layer2Target, setLayer2Target] = useState<{ left: number; top: number } | null>(null);
   const [isLayer2Flying, setIsLayer2Flying] = useState(false);
-  const [layer3Position, setLayer3Position] = useState({ left: 40, top: 65 });
+  const [layer3Position, setLayer3Position] = useState({
+    left: 10,
+    top: 75,
+  }); /* нижний левый угол */
   const [layer3Target, setLayer3Target] = useState<{ left: number; top: number } | null>(null);
   const [isLayer3Flying, setIsLayer3Flying] = useState(false);
-  const [layer4Position, setLayer4Position] = useState({ left: 60, top: 60 });
+  const [layer4Position, setLayer4Position] = useState({
+    left: 80,
+    top: 80,
+  }); /* нижний правый угол */
   const [layer4Target, setLayer4Target] = useState<{ left: number; top: number } | null>(null);
   const [isLayer4Flying, setIsLayer4Flying] = useState(false);
-  const [layer5Position, setLayer5Position] = useState({ left: 30, top: 50 });
+  const [layer5Position, setLayer5Position] = useState({ left: 50, top: 10 }); /* верх центр */
   const [layer5Target, setLayer5Target] = useState<{ left: number; top: number } | null>(null);
   const [isLayer5Flying, setIsLayer5Flying] = useState(false);
-  const [layer6Position, setLayer6Position] = useState({ left: 70, top: 55 });
+  const [layer6Position, setLayer6Position] = useState({ left: 92, top: 45 }); /* правый край */
   const [layer6Target, setLayer6Target] = useState<{ left: number; top: number } | null>(null);
   const [isLayer6Flying, setIsLayer6Flying] = useState(false);
 
@@ -523,12 +535,12 @@ export function HeroParallax({ sectionRef, children }: Props) {
     moveLayer6();
 
     /* Устанавливаем интервалы для повторения */
-    const interval1 = setInterval(moveLayer1, 3000);
-    const interval2 = setInterval(moveLayer2, 3000);
-    const interval3 = setInterval(moveLayer3, 3000);
-    const interval4 = setInterval(moveLayer4, 3000);
-    const interval5 = setInterval(moveLayer5, 3000);
-    const interval6 = setInterval(moveLayer6, 3000);
+    const interval1 = setInterval(moveLayer1, 2300);
+    const interval2 = setInterval(moveLayer2, 2300);
+    const interval3 = setInterval(moveLayer3, 2300);
+    const interval4 = setInterval(moveLayer4, 2300);
+    const interval5 = setInterval(moveLayer5, 2300);
+    const interval6 = setInterval(moveLayer6, 2300);
 
     return () => {
       clearInterval(interval1);
@@ -595,7 +607,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
         animate={{
           left: `${layer1DisplayTarget.left}%`,
           top: `${layer1DisplayTarget.top}%`,
-          transition: layer1Target ? { duration: 8, ease: 'linear' } : { duration: 0 },
+          transition: layer1Target ? { duration: 4.6, ease: 'linear' } : { duration: 0 },
         }}
         onAnimationComplete={layer1Target ? handleLayer1AnimationComplete : undefined}
         aria-hidden
@@ -645,7 +657,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
         animate={{
           left: `${layer2DisplayTarget.left}%`,
           top: `${layer2DisplayTarget.top}%`,
-          transition: layer2Target ? { duration: 8, ease: 'linear' } : { duration: 0 },
+          transition: layer2Target ? { duration: 4.6, ease: 'linear' } : { duration: 0 },
         }}
         onAnimationComplete={layer2Target ? handleLayer2AnimationComplete : undefined}
         aria-hidden
@@ -695,7 +707,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
         animate={{
           left: `${layer3DisplayTarget.left}%`,
           top: `${layer3DisplayTarget.top}%`,
-          transition: layer3Target ? { duration: 8, ease: 'linear' } : { duration: 0 },
+          transition: layer3Target ? { duration: 4.6, ease: 'linear' } : { duration: 0 },
         }}
         onAnimationComplete={layer3Target ? handleLayer3AnimationComplete : undefined}
         aria-hidden
@@ -745,7 +757,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
         animate={{
           left: `${layer4DisplayTarget.left}%`,
           top: `${layer4DisplayTarget.top}%`,
-          transition: layer4Target ? { duration: 8, ease: 'linear' } : { duration: 0 },
+          transition: layer4Target ? { duration: 4.6, ease: 'linear' } : { duration: 0 },
         }}
         onAnimationComplete={layer4Target ? handleLayer4AnimationComplete : undefined}
         aria-hidden
@@ -793,7 +805,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
         animate={{
           left: `${layer5DisplayTarget.left}%`,
           top: `${layer5DisplayTarget.top}%`,
-          transition: layer5Target ? { duration: 8, ease: 'linear' } : { duration: 0 },
+          transition: layer5Target ? { duration: 4.6, ease: 'linear' } : { duration: 0 },
         }}
         onAnimationComplete={layer5Target ? handleLayer5AnimationComplete : undefined}
         aria-hidden
@@ -843,7 +855,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
         animate={{
           left: `${layer6DisplayTarget.left}%`,
           top: `${layer6DisplayTarget.top}%`,
-          transition: layer6Target ? { duration: 8, ease: 'linear' } : { duration: 0 },
+          transition: layer6Target ? { duration: 4.6, ease: 'linear' } : { duration: 0 },
         }}
         onAnimationComplete={layer6Target ? handleLayer6AnimationComplete : undefined}
         aria-hidden

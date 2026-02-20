@@ -25,6 +25,12 @@ export const metadata: Metadata = {
   description: 'Персональные сайт',
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover' as const,
+};
+
 export const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ru" data-theme="dark" suppressHydrationWarning>

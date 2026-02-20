@@ -18,11 +18,16 @@
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   z-index: 100;
-  padding: 1rem 0;
+  padding-top: max(1rem, env(safe-area-inset-top, 0px));
+  padding-bottom: 1rem;
   background: var(--card-bg);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
   transition:
     background-color 0.35s ease,
     border-color 0.35s ease,
@@ -277,7 +282,8 @@
 /* Мобильная адаптация для хедера */
 @media (max-width: 768px) {
   .header {
-    padding: 0.75rem 0;
+    padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+    padding-bottom: 0.75rem;
   }
 
   .nav {
@@ -309,7 +315,8 @@
 
 @media (max-width: 480px) {
   .header {
-    padding: 0.625rem 0;
+    padding-top: max(0.625rem, env(safe-area-inset-top, 0px));
+    padding-bottom: 0.625rem;
   }
 
   .nav {
@@ -996,44 +1003,44 @@
   display: block;
 }
 
-/* Подъём при наведении + увеличение на 15% + слабое покачивание; карточка впереди (z-index) */
+/* Подъём при наведении + увеличение ~26.5% (1.15 + 10%) + слабое покачивание; карточка впереди (z-index) */
 @keyframes polaroidSway1 {
   0%,
   100% {
-    transform: rotate(-8deg) translateY(-3px) scale(1.15);
+    transform: rotate(-8deg) translateY(-3px) scale(1.27);
   }
   50% {
-    transform: rotate(-6deg) translateY(-3px) scale(1.15);
+    transform: rotate(-6deg) translateY(-3px) scale(1.27);
   }
 }
 
 @keyframes polaroidSway2 {
   0%,
   100% {
-    transform: rotate(4deg) translateY(-3px) scale(1.15);
+    transform: rotate(4deg) translateY(-3px) scale(1.27);
   }
   50% {
-    transform: rotate(6deg) translateY(-3px) scale(1.15);
+    transform: rotate(6deg) translateY(-3px) scale(1.27);
   }
 }
 
 @keyframes polaroidSway3 {
   0%,
   100% {
-    transform: rotate(-12deg) translateY(-3px) scale(1.15);
+    transform: rotate(-12deg) translateY(-3px) scale(1.27);
   }
   50% {
-    transform: rotate(-10deg) translateY(-3px) scale(1.15);
+    transform: rotate(-10deg) translateY(-3px) scale(1.27);
   }
 }
 
 @keyframes polaroidSway4 {
   0%,
   100% {
-    transform: rotate(7deg) translateY(-3px) scale(1.15);
+    transform: rotate(7deg) translateY(-3px) scale(1.27);
   }
   50% {
-    transform: rotate(9deg) translateY(-3px) scale(1.15);
+    transform: rotate(9deg) translateY(-3px) scale(1.27);
   }
 }
 
