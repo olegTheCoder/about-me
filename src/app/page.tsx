@@ -3,11 +3,11 @@
 import { useLocale } from '@/components/LocaleProvider';
 import { HeroParallax } from '@/components/HeroParallax';
 import { MatrixText } from '@/components/MatrixText';
+import { PolaroidWithGlitch } from '@/components/PolaroidWithGlitch';
 import { Model3D } from '@/components/Model3D';
 import { useTheme } from '@/components/ThemeProvider';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, Menu, Moon, Sun, X } from 'lucide-react';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import type { IconType } from 'react-icons';
@@ -24,6 +24,7 @@ import {
 import {
   SiChartdotjs,
   SiCss3,
+  SiDocker,
   SiGit,
   SiHtml5,
   SiJavascript,
@@ -32,6 +33,7 @@ import {
   SiReact,
   SiRedux,
   SiSass,
+  SiStrapi,
   SiTypescript,
   SiWebpack,
 } from 'react-icons/si';
@@ -78,6 +80,8 @@ const SKILLS: { name: string; Icon: IconType }[] = [
   { name: 'Webpack', Icon: SiWebpack },
   { name: 'SCSS/SASS', Icon: SiSass },
   { name: 'Git', Icon: SiGit },
+  { name: 'Strapi', Icon: SiStrapi },
+  { name: 'Docker', Icon: SiDocker },
 ];
 
 export default function HomePage() {
@@ -394,15 +398,7 @@ export default function HomePage() {
                   variants={staggerCardItem}
                 >
                   <div className={styles.polaroidInner}>
-                    <Image
-                      src={item.src}
-                      alt={t(item.altKey)}
-                      width={280}
-                      height={320}
-                      sizes="(max-width: 768px) 45vw, 280px"
-                      loading="lazy"
-                      className={styles.polaroidImg}
-                    />
+                    <PolaroidWithGlitch src={item.src} alt={t(item.altKey)} />
                   </div>
                 </motion.div>
               ))}
