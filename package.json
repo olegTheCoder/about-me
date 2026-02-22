@@ -7,6 +7,8 @@
     "dev": "next dev",
     "dev:alt": "next dev -p 3001",
     "build": "next build",
+    "build:static": "next build",
+    "deploy:zip": "npm run build && cd out && zip -r ../deploy-handyhost.zip . && cd .. && echo 'Готово: deploy-handyhost.zip — загрузи содержимое в корень сайта через FTP/ISPmanager'",
     "start": "next start",
     "start:alt": "next start -p 3001",
     "lint": "eslint . --max-warnings=0",
