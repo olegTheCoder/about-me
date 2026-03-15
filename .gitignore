@@ -36,3 +36,7 @@ coverage/
 # Misc
 *.local
 .vercel
+
+deploy-handyhost.zip
+DEPLOY.md
+.htaccess
