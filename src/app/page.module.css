@@ -831,6 +831,10 @@
 }
 
 /* About — Polaroid-карточки по ширине с лёгким наложением */
+.aboutSectionPinned {
+  overflow: hidden;
+}
+
 .aboutPolaroids {
   position: relative;
   width: 100%;

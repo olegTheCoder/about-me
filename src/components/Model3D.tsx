@@ -144,8 +144,8 @@ export function Model3D({ modelPath, className }: Model3DProps) {
 
   if (isCheckingFile || !isLoaded) {
     return (
-      <div className={`${styles.skeletonWrap} ${className ?? ''}`}>
-        <div className={styles.skeleton} aria-hidden="true" />
+      <div className={`${styles.spinnerWrap} ${className ?? ''}`}>
+        <div className={styles.spinner} aria-label="Загрузка 3D-модели" />
       </div>
     );
   }
