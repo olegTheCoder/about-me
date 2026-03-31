@@ -159,10 +159,6 @@ export function HeroParallax({ sectionRef, children }: Props) {
   const layer5Y = useTransform(mouseY, [-0.5, 0.5], [-110, 110]);
   const layer6Y = useTransform(mouseY, [-0.5, 0.5], [90, -90]);
 
-  /* Контент: лёгкое смещение в обратную сторону — ощущение глубины */
-  const contentX = useTransform(mouseX, [-0.5, 0.5], [24, -24]);
-  const contentY = useTransform(mouseY, [-0.5, 0.5], [18, -18]);
-
   const scrollLayer1Y = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const scrollLayer2Y = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const scrollLayer3Y = useTransform(scrollYProgress, [0, 0.8], [0, -60]);
@@ -896,9 +892,7 @@ export function HeroParallax({ sectionRef, children }: Props) {
           }}
         />
       </motion.div>
-      <motion.div className={styles.contentWrap} style={{ x: contentX, y: contentY }}>
-        {children}
-      </motion.div>
+      <motion.div className={styles.contentWrap}>{children}</motion.div>
     </>
   );
 }

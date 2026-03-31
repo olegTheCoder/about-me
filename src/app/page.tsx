@@ -12,16 +12,6 @@ import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import type { IconType } from 'react-icons';
 import {
-  fadeIn,
-  fadeInUp,
-  footerFadeIn,
-  sectionTitle,
-  staggerCard,
-  staggerCardItem,
-  staggerContainer,
-  staggerItem,
-} from '@/lib/animations';
-import {
   SiChartdotjs,
   SiCss3,
   SiDocker,
@@ -37,6 +27,9 @@ import {
   SiTypescript,
   SiWebpack,
 } from 'react-icons/si';
+import { fadeIn, fadeInUp, footerFadeIn, sectionTitle } from '@/lib/animations';
+import { useGsapCards } from '@/hooks/useGsapCards';
+import { useGsapPinnedPolaroids } from '@/hooks/useGsapPinnedPolaroids';
 import styles from './page.module.css';
 
 const ExperienceSection = dynamic(() => import('@/components/ExperienceSection'), {
@@ -91,6 +84,9 @@ export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false);
   const [canLoadModel, setCanLoadModel] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
+  const polaroids = useGsapPinnedPolaroids();
+  const skillsRef = useGsapCards<HTMLUListElement>('skill');
+  const projectsRef = useGsapCards<HTMLUListElement>('project');
 
   useEffect(() => {
     setIsMounted(true);
@@ -349,18 +345,16 @@ export default function HomePage() {
           </HeroParallax>
         </section>
 
-        <section id="about" className={styles.section}>
+        <section
+          id="about"
+          ref={polaroids.sectionRef}
+          className={`${styles.section} ${styles.aboutSectionPinned}`}
+        >
           <div className={styles.container}>
             <motion.h2 className={styles.sectionTitle} {...sectionTitle}>
               {t('about.title')}
             </motion.h2>
-            <motion.div
-              className={styles.aboutPolaroids}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-40px' }}
-              variants={staggerCard}
-            >
+            <div ref={polaroids.cardsRef} className={styles.aboutPolaroids}>
               {[
                 {
                   src: '/images/about-photo.png',
@@ -391,18 +385,17 @@ export default function HomePage() {
                   zIndex: 3,
                 },
               ].map((item) => (
-                <motion.div
+                <div
                   key={item.src}
                   className={`${styles.polaroidCard} ${styles[item.rotation]} ${styles[item.position]} ${item.zIndex === 4 ? styles.swayIdle : ''}`}
                   style={{ zIndex: item.zIndex }}
-                  variants={staggerCardItem}
                 >
                   <div className={styles.polaroidInner}>
                     <PolaroidWithGlitch src={item.src} alt={t(item.altKey)} />
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -411,25 +404,14 @@ export default function HomePage() {
             <motion.h2 className={styles.sectionTitle} {...sectionTitle}>
               {t('skills.title')}
             </motion.h2>
-            <motion.ul
-              className={styles.skillsList}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-40px' }}
-              variants={staggerContainer}
-            >
+            <ul ref={skillsRef} className={styles.skillsList}>
               {SKILLS.map((skill) => (
-                <motion.li
-                  key={skill.name}
-                  className={styles.skillItem}
-                  variants={staggerItem}
-                  whileHover={{ scale: 1.03 }}
-                >
+                <li key={skill.name} className={styles.skillItem}>
                   <skill.Icon className={styles.skillIcon} aria-hidden />
                   <span>{skill.name}</span>
-                </motion.li>
+                </li>
               ))}
-            </motion.ul>
+            </ul>
           </div>
         </section>
 
@@ -465,13 +447,7 @@ export default function HomePage() {
             <motion.h2 className={styles.sectionTitle} {...sectionTitle}>
               {t('projects.title')}
             </motion.h2>
-            <motion.ul
-              className={styles.projectsGrid}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-40px' }}
-              variants={staggerContainer}
-            >
+            <ul ref={projectsRef} className={styles.projectsGrid}>
               {[
                 {
                   title: t('projects.item1.title'),
@@ -516,12 +492,7 @@ export default function HomePage() {
                   .map((s) => s.trim())
                   .filter(Boolean);
                 return (
-                  <motion.li
-                    key={project.title}
-                    className={styles.projectCard}
-                    variants={staggerItem}
-                    whileHover={{ y: -4 }}
-                  >
+                  <li key={project.title} className={styles.projectCard}>
                     <div className={styles.projectLink}>
                       <div className={styles.projectLogoWrap}>
                         {'logo2' in project && project.logo2 && (
@@ -546,10 +517,10 @@ export default function HomePage() {
                         ))}
                       </ul>
                     </div>
-                  </motion.li>
+                  </li>
                 );
               })}
-            </motion.ul>
+            </ul>
           </div>
         </section>
 
