@@ -51,7 +51,7 @@ export function useGsapPinnedPolaroids() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: 'top 15%',
+          start: 'top 5%',
           end: `+=${cards.length * 15}%`,
           pin: true,
           scrub: 0,
