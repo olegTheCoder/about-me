@@ -24,7 +24,7 @@ export const translations = {
     hero: {
       label: 'Фронтенд-разработчик',
       tagline:
-        'Опыт работы в топовых it-компаниях: RuStore, Билайн и red_mad_robot. Обладаю лучшими практиками веб-разработки в больших распределенных командах. Есть реализованные самостоятельные проекты.',
+        'Опыт работы в топовых it-компаниях: RuStore, Билайн и red_mad_robot. Обладаю лучшими практиками веб-разработки в больших распределенных командах. Есть реализованные самостоятельные проекты. Активно использую ИИ в daily-разработке, что ускоряет решение задач без потери качества кода.',
       ctaContact: 'Связаться',
       ctaProjects: 'Смотреть работы',
     },
@@ -133,7 +133,7 @@ export const translations = {
     hero: {
       label: 'Frontend developer',
       tagline:
-        'Experience in top IT companies: RuStore, Beeline and red_mad_robot. Strong expertise in web development best practices in large distributed teams. Delivered independent projects.',
+        'Experience in top IT companies: RuStore, Beeline and red_mad_robot. Strong expertise in web development best practices in large distributed teams. Delivered independent projects. I actively use AI in daily development, which accelerates task delivery without compromising code quality.',
       ctaContact: 'Contact',
       ctaProjects: 'View work',
     },
