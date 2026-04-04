@@ -26,16 +26,16 @@ export function useGsapCards<T extends HTMLElement = HTMLDivElement>(animation: 
         case 'project': {
           gsap.from(targets, {
             opacity: 0,
-            y: 60,
-            scale: 0.9,
-            rotateX: 12,
+            y: 40,
+            scale: 0.95,
+            rotateX: 6,
             transformPerspective: 800,
-            duration: 0.75,
-            stagger: 0.08,
-            ease: 'power3.out',
+            duration: 0.9,
+            stagger: 0.1,
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: container,
-              start: 'top 85%',
+              start: 'top 88%',
               once: true,
             },
             onComplete() {
@@ -48,14 +48,14 @@ export function useGsapCards<T extends HTMLElement = HTMLDivElement>(animation: 
         case 'skill': {
           gsap.from(targets, {
             opacity: 0,
-            scale: 0,
-            rotation: -15,
-            duration: 0.6,
-            stagger: 0.03,
-            ease: 'elastic.out(1, 0.55)',
+            scale: 0.5,
+            rotation: -8,
+            duration: 0.7,
+            stagger: 0.04,
+            ease: 'back.out(1.4)',
             scrollTrigger: {
               trigger: container,
-              start: 'top 85%',
+              start: 'top 88%',
               once: true,
             },
             onComplete() {
@@ -70,16 +70,16 @@ export function useGsapCards<T extends HTMLElement = HTMLDivElement>(animation: 
             const dir = i % 2 === 0 ? -1 : 1;
             gsap.from(card, {
               opacity: 0,
-              x: dir * 60,
-              y: 20,
-              rotation: dir * 5,
-              scale: 0.95,
-              duration: 0.8,
-              delay: i * 0.15,
+              x: dir * 40,
+              y: 15,
+              rotation: dir * 3,
+              scale: 0.97,
+              duration: 0.9,
+              delay: i * 0.12,
               ease: 'power2.out',
               scrollTrigger: {
                 trigger: card,
-                start: 'top 88%',
+                start: 'top 90%',
                 once: true,
               },
               onComplete() {

@@ -53,6 +53,11 @@ body {
   color: var(--text-primary);
 }
 
+/* GSAP pin-spacer не должен создавать горизонтальных скачков */
+.pin-spacer {
+  overflow: hidden !important;
+}
+
 a {
   color: inherit;
   text-decoration: none;

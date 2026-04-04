@@ -774,6 +774,7 @@
   padding: 4.5rem 0;
   position: relative;
   background: var(--section-bg);
+  will-change: transform;
 }
 
 .section::before {
@@ -833,6 +834,11 @@
 /* About — Polaroid-карточки по ширине с лёгким наложением */
 .aboutSectionPinned {
   overflow: hidden;
+  will-change: transform;
+}
+
+.aboutSectionPinned :global(.pin-spacer) {
+  overflow: hidden !important;
 }
 
 .aboutPolaroids {
