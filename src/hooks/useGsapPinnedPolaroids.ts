@@ -67,6 +67,11 @@ export function useGsapPinnedPolaroids() {
     const cards = Array.from(container.children) as HTMLElement[];
     if (!cards.length) return;
 
+    if (window.innerWidth <= 768) {
+      gsap.set(cards, { opacity: 1, scale: 1, x: 0, y: 0, rotation: 0 });
+      return;
+    }
+
     let finalized = false;
     const origins = getCardOrigins();
 

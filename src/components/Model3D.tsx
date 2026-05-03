@@ -185,11 +185,14 @@ export function Model3D({ modelPath, className }: Model3DProps) {
         interaction-policy="allow-when-focused"
         interaction-prompt="none"
         poster=""
-        style={{
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'transparent',
-        }}
+        style={
+          {
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'transparent',
+            '--poster-color': 'transparent',
+          } as React.CSSProperties
+        }
         ar-scale="auto"
         ar-modes="webxr scene-viewer quick-look"
       />
