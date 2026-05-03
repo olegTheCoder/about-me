@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "dev:safe": "lsof -ti:3000 | xargs kill -9 2>/dev/null; next dev",
     "dev:alt": "next dev -p 3001",
     "build": "next build",
     "build:static": "next build",
@@ -18,6 +19,7 @@
   },
   "dependencies": {
     "@google/model-viewer": "^4.1.0",
+    "@olegthecoder/pepe-loader": "^1.0.0",
     "classnames": "^2.5.1",
     "framer-motion": "^11.0.0",
     "gsap": "^3.14.2",

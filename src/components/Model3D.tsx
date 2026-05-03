@@ -1,5 +1,7 @@
 'use client';
 
+import { useTheme } from '@/components/ThemeProvider';
+import { PepeLoader } from '@olegthecoder/pepe-loader';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Model3D.module.css';
 
@@ -33,10 +35,18 @@ declare global {
 }
 
 export function Model3D({ modelPath, className }: Model3DProps) {
+  const { theme } = useTheme();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isCheckingFile, setIsCheckingFile] = useState(true);
+  const [hasMinElapsed, setHasMinElapsed] = useState(false);
   const modelViewerRef = useRef<HTMLElement>(null);
+
+  // Показываем лоадер минимум 2 секунды
+  useEffect(() => {
+    const timer = setTimeout(() => setHasMinElapsed(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Проверяем существование файла перед загрузкой
   useEffect(() => {
@@ -142,10 +152,19 @@ export function Model3D({ modelPath, className }: Model3DProps) {
     );
   }
 
-  if (isCheckingFile || !isLoaded) {
+  if (isCheckingFile || !isLoaded || !hasMinElapsed) {
     return (
-      <div className={`${styles.spinnerWrap} ${className ?? ''}`}>
-        <div className={styles.spinner} aria-label="Загрузка 3D-модели" />
+      <div
+        className={className ?? ''}
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <PepeLoader speed={2.9} textColor={theme === 'light' ? '#000000' : '#ffffff'} />
       </div>
     );
   }
