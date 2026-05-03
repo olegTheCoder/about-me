@@ -5,12 +5,13 @@ import { HeroParallax } from '@/components/HeroParallax';
 import { MatrixText } from '@/components/MatrixText';
 import { PolaroidWithGlitch } from '@/components/PolaroidWithGlitch';
 import { Model3D } from '@/components/Model3D';
+import { SkillsSection } from '@/components/SkillsSection';
 import { useTheme } from '@/components/ThemeProvider';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, Menu, Moon, Sun, X } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
-import type { IconType } from 'react-icons';
+import type { SkillItem } from '@/components/SkillsSection';
 import {
   SiChartdotjs,
   SiCss3,
@@ -56,25 +57,30 @@ const CoursesSection = dynamic(() => import('@/components/CoursesSection'), {
   ),
 });
 
-const SKILLS: { name: string; Icon: IconType }[] = [
-  { name: 'TypeScript', Icon: SiTypescript },
-  { name: 'JavaScript', Icon: SiJavascript },
-  { name: 'React', Icon: SiReact },
-  { name: 'Redux', Icon: SiRedux },
-  { name: 'React-Query', Icon: Code2 },
-  { name: 'Jotai', Icon: Code2 },
-  { name: 'Node.js', Icon: SiNodedotjs },
-  { name: 'REST API', Icon: Code2 },
-  { name: 'ChartJS', Icon: SiChartdotjs },
-  { name: 'CSS', Icon: SiCss3 },
-  { name: 'HTML', Icon: SiHtml5 },
-  { name: 'Jest', Icon: SiJest },
-  { name: 'Playwright', Icon: Code2 },
-  { name: 'Webpack', Icon: SiWebpack },
-  { name: 'SCSS/SASS', Icon: SiSass },
-  { name: 'Git', Icon: SiGit },
-  { name: 'Strapi', Icon: SiStrapi },
-  { name: 'Docker', Icon: SiDocker },
+const SKILLS: SkillItem[] = [
+  { name: 'TypeScript', Icon: SiTypescript, url: 'https://www.typescriptlang.org' },
+  {
+    name: 'JavaScript',
+    Icon: SiJavascript,
+    url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+  },
+  { name: 'React', Icon: SiReact, url: 'https://react.dev' },
+  { name: 'Redux', Icon: SiRedux, url: 'https://redux.js.org' },
+  { name: 'React-Query', Icon: Code2, url: 'https://tanstack.com/query' },
+  { name: 'Jotai', Icon: Code2, url: 'https://jotai.org' },
+  { name: 'Node.js', Icon: SiNodedotjs, url: 'https://nodejs.org' },
+  { name: 'REST API', Icon: Code2, url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP' },
+  { name: 'ChartJS', Icon: SiChartdotjs, url: 'https://www.chartjs.org' },
+  { name: 'CSS', Icon: SiCss3, url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
+  { name: 'HTML', Icon: SiHtml5, url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
+  { name: 'Jest', Icon: SiJest, url: 'https://jestjs.io' },
+  { name: 'Playwright', Icon: Code2, url: 'https://playwright.dev' },
+  { name: 'Webpack', Icon: SiWebpack, url: 'https://webpack.js.org' },
+  { name: 'SCSS/SASS', Icon: SiSass, url: 'https://sass-lang.com' },
+  { name: 'Git', Icon: SiGit, url: 'https://git-scm.com' },
+  { name: 'Strapi', Icon: SiStrapi, url: 'https://strapi.io' },
+  { name: 'Docker', Icon: SiDocker, url: 'https://www.docker.com' },
+  { name: 'OpenCode', Icon: Code2, url: 'https://opencode.ai' },
 ];
 
 export default function HomePage() {
@@ -85,7 +91,6 @@ export default function HomePage() {
   const [canLoadModel, setCanLoadModel] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const polaroids = useGsapPinnedPolaroids();
-  const skillsRef = useGsapCards<HTMLUListElement>('skill');
   const projectsRef = useGsapCards<HTMLUListElement>('project');
 
   useEffect(() => {
@@ -399,21 +404,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="skills" className={styles.section}>
-          <div className={styles.container}>
-            <motion.h2 className={styles.sectionTitle} {...sectionTitle}>
-              {t('skills.title')}
-            </motion.h2>
-            <ul ref={skillsRef} className={styles.skillsList}>
-              {SKILLS.map((skill) => (
-                <li key={skill.name} className={styles.skillItem}>
-                  <skill.Icon className={styles.skillIcon} aria-hidden />
-                  <span>{skill.name}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        <SkillsSection skills={SKILLS} title={t('skills.title')} />
 
         <ExperienceSection
           title={t('experience.title')}
