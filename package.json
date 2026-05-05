@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@google/model-viewer": "^4.1.0",
-    "@olegthecoder/pepe-loader": "^1.0.0",
+    "@olegthecoder/yin-yang-loader": "^1.0.0",
     "classnames": "^2.5.1",
     "framer-motion": "^11.0.0",
     "gsap": "^3.14.2",

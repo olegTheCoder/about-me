@@ -1,7 +1,6 @@
 'use client';
 
-import { useTheme } from '@/components/ThemeProvider';
-import { PepeLoader } from '@olegthecoder/pepe-loader';
+import { YinYangLoader } from '@olegthecoder/yin-yang-loader';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Model3D.module.css';
 
@@ -35,7 +34,6 @@ declare global {
 }
 
 export function Model3D({ modelPath, className }: Model3DProps) {
-  const { theme } = useTheme();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isCheckingFile, setIsCheckingFile] = useState(true);
@@ -164,7 +162,7 @@ export function Model3D({ modelPath, className }: Model3DProps) {
           justifyContent: 'center',
         }}
       >
-        <PepeLoader speed={2.9} textColor={theme === 'light' ? '#000000' : '#ffffff'} />
+        <YinYangLoader />
       </div>
     );
   }
